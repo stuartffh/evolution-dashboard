@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useCallback, useEffect, useState } from "react";
 import { Cliente, EvolutionInstance } from "@/lib/types";
@@ -109,36 +109,36 @@ export default function GestorPage() {
 
   return (
     <Sidebar role="gestor">
-      <div className="max-w-4xl mx-auto ">
-        <h1 className="text-3xl font-bold mb-6">Painel do Gestor</h1>
+      <div className="page-container max-w-4xl">
+        <h1 className="page-title">Painel do Gestor</h1>
 
-        <div className="bg-white/10 rounded-lg p-6 mb-10">
-          <h2 className="text-xl font-semibold mb-4">
+        <div className="card mb-10">
+          <h2 className="form-title">
             {editando ? "Editar Cliente" : "Novo Cliente"}
           </h2>
 
           <div className="grid gap-4">
             <input
-              className="px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
+              className="input"
               placeholder="Nome"
               value={form.nome}
               onChange={(e) => setForm({ ...form, nome: e.target.value })}
             />
             <input
-              className="px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
+              className="input"
               placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
             <input
               type="password"
-              className="px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
+              className="input"
               placeholder="Senha"
               value={form.senha}
               onChange={(e) => setForm({ ...form, senha: e.target.value })}
             />
             <select
-              className="px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
+              className="input"
               value={form.instanceId}
               onChange={(e) => setForm({ ...form, instanceId: e.target.value })}
             >
@@ -153,32 +153,32 @@ export default function GestorPage() {
 
             <button
               onClick={handleSubmit}
-              className="btn bg-blue-600 hover:bg-blue-700"
+              className="btn"
             >
               {editando ? "Atualizar" : "Salvar"}
             </button>
           </div>
         </div>
 
-        <h2 className="text-xl font-semibold mb-4">Clientes Cadastrados</h2>
+        <h2 className="form-title">Clientes Cadastrados</h2>
         <div className="overflow-x-auto">
-          <table className="w-full table-auto text-sm">
-            <thead className="bg-white/10">
+          <table className="table">
+            <thead>
               <tr>
-                <th className="p-2 text-left">Nome</th>
-                <th className="p-2 text-left">Email</th>
-                <th className="p-2 text-left">Instância</th>
-                <th className="p-2 text-left">Ações</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Instância</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(clientes) && clientes.length > 0 ? (
                 clientes.map((cliente) => (
-                  <tr key={cliente.id} className="border-t border-white/10">
-                    <td className="p-2">{cliente.nome}</td>
-                    <td className="p-2">{cliente.email}</td>
-                    <td className="p-2">{cliente.instanceId}</td>
-                    <td className="p-2 space-x-2">
+                  <tr key={cliente.id}>
+                    <td>{cliente.nome}</td>
+                    <td>{cliente.email}</td>
+                    <td>{cliente.instanceId}</td>
+                    <td className="space-x-2">
                       <button
                         onClick={() => handleEdit(cliente)}
                         className="bg-yellow-500 px-3 py-1 rounded text-sm"

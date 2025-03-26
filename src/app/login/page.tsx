@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -47,33 +48,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 to-zinc-900 text-white px-4">
-      <div className="bg-white/10 backdrop-blur-lg rounded-lg shadow-lg p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold mb-6 text-center">Entrar no Painel</h1>
+<div className="page-login">
+  <div className="login-box">
+    <h1 className="form-title">Entrar no Painel</h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full mb-4 px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <input
+      type="email"
+      placeholder="Email"
+      className="input"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
 
-        <input
-          type="password"
-          placeholder="Senha"
-          className="w-full mb-6 px-4 py-2 bg-zinc-800 border border-zinc-600 rounded-md"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
+    <input
+      type="password"
+      placeholder="Senha"
+      className="input"
+      value={senha}
+      onChange={(e) => setSenha(e.target.value)}
+    />
 
-        <button
-          onClick={handleLogin}
-          className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold transition"
-        >
-          Entrar
-        </button>
-      </div>
-    </div>
+    <button onClick={handleLogin} className="btn w-full">
+      Entrar
+    </button>
+  </div>
+</div>
+
   );
 }

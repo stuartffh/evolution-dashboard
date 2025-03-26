@@ -27,36 +27,32 @@ export default function Sidebar({ children, role }: SidebarProps) {
   const links = role === "gestor" ? linksGestor : linksCliente;
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <aside className="w-64 bg-zinc-900 text-white p-6 space-y-4 shadow-lg">
-        <h2 className="text-2xl font-bold mb-6">
-          {role === "gestor" ? "Painel Gestor" : "Painel Cliente"}
-        </h2>
-        <ul className="space-y-2">
-          {links.map((link) => (
-            <li
-              key={link.path}
-              onClick={() => router.push(link.path)}
-              className={`cursor-pointer px-4 py-2 rounded-md transition ${
-                pathname === link.path ? "bg-blue-600" : "hover:bg-zinc-700"
-              }`}
-            >
-              {link.label}
-            </li>
-          ))}
-        </ul>
+<div className="flex h-screen overflow-hidden">
+  <aside className="sidebar">
+    <h2 className="sidebar-title">
+      {role === "gestor" ? "Painel Gestor" : "Painel Cliente"}
+    </h2>
 
-        <button
-          onClick={logout}
-          className="mt-10 w-full bg-red-600 hover:bg-red-700 py-2 rounded-md text-sm"
+    <ul className="sidebar-links">
+      {links.map((link) => (
+        <li
+          key={link.path}
+          onClick={() => router.push(link.path)}
+          className={`sidebar-link ${pathname === link.path ? "active" : ""}`}
         >
-          Sair
-        </button>
-      </aside>
+          {link.label}
+        </li>
+      ))}
+    </ul>
 
-      <main className="flex-1 bg-zinc-950 text-white p-10 overflow-hidden">
-        {children}
-      </main>
-    </div>
+    <button onClick={logout} className="btn btn-logout">
+      Sair
+    </button>
+  </aside>
+
+  <main className="main-content">
+    {children}
+  </main>
+</div>
   );
 }

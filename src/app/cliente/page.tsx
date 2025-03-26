@@ -37,10 +37,9 @@ export default function ClientePage() {
 
   const conectarInstancia = async () => {
     if (!instancia) return;
-    setShowQRModal(true); // Mostra modal
-    fetchQRCode(); // Primeira chamada
+    setShowQRModal(true);
+    fetchQRCode();
 
-    // Atualiza o QR code a cada 15s
     qrInterval.current = setInterval(() => {
       fetchQRCode();
     }, 15000);
@@ -89,7 +88,7 @@ export default function ClientePage() {
     setShowQRModal(false);
     setQrcode(null);
     if (qrInterval.current) clearInterval(qrInterval.current);
-    fetchStatus(); // Atualiza status ao fechar
+    fetchStatus();
   };
 
   useEffect(() => {
@@ -101,22 +100,22 @@ export default function ClientePage() {
 
   return (
     <Sidebar role="cliente">
-      <div className="max-w-xl mx-auto py-8 relative">
-        <h1 className="text-2xl font-bold mb-6">Minha Instância</h1>
+      <div className="page-container max-w-xl">
+        <h1 className="page-title">Minha Instância</h1>
 
-        {loading && <p className="text-gray-400">Carregando...</p>}
+        {loading && <p className="text-muted">Carregando...</p>}
 
         {instancia && (
-          <div className="bg-white/10 p-6 rounded space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">{instancia.name}</h2>
+          <div className="card">
+            <div className="card-header">
+              <h2 className="card-title">{instancia.name}</h2>
               <span
-                className={`text-sm px-2 py-1 rounded ${
+                className={`status ${
                   instancia.connectionStatus === 'open'
-                    ? 'bg-green-700'
+                    ? 'status-open'
                     : instancia.connectionStatus === 'qr'
-                    ? 'bg-yellow-600'
-                    : 'bg-red-700'
+                    ? 'status-qr'
+                    : 'status-disconnected'
                 }`}
               >
                 {instancia.connectionStatus === 'open'
@@ -132,28 +131,19 @@ export default function ClientePage() {
             <p><strong>Mensagens:</strong> {instancia._count?.Message ?? 0}</p>
             <p><strong>Contatos:</strong> {instancia._count?.Contact ?? 0}</p>
 
-            <div className="grid grid-cols-4 gap-4">
-              <button
-                onClick={fetchStatus}
-                className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
-              >
+            <div className="btn-group grid grid-cols-4 gap-4">
+              <button onClick={fetchStatus} className="btn">
                 Atualizar
               </button>
 
               {instancia.connectionStatus === 'open' && (
-                <button
-                  onClick={desconectarInstancia}
-                  className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
-                >
+                <button onClick={desconectarInstancia} className="btn bg-red-600 hover:bg-red-700">
                   Desconectar
                 </button>
               )}
 
               {!['open', 'qr'].includes(instancia.connectionStatus) && (
-                <button
-                  onClick={conectarInstancia}
-                  className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
-                >
+                <button onClick={conectarInstancia} className="btn bg-green-600 hover:bg-green-700">
                   Conectar
                 </button>
               )}
@@ -161,10 +151,9 @@ export default function ClientePage() {
           </div>
         )}
 
-        {/* MODAL QR CODE */}
         {showQRModal && (
-          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-            <div className="bg-zinc-900 p-6 rounded-lg shadow-lg text-center relative">
+          <div className="modal">
+            <div className="modal-box">
               <h2 className="text-lg font-bold mb-4">Escaneie o QR Code abaixo</h2>
 
               {qrcode ? (
@@ -176,12 +165,12 @@ export default function ClientePage() {
                   className="mx-auto border border-white/20 rounded"
                 />
               ) : (
-                <p className="text-sm text-gray-400">Aguardando QR Code...</p>
+                <p className="text-muted">Aguardando QR Code...</p>
               )}
 
               <button
                 onClick={fecharModal}
-                className="mt-4 bg-red-600 hover:bg-red-700 px-4 py-2 rounded"
+                className="btn bg-red-600 hover:bg-red-700 mt-4"
               >
                 Fechar
               </button>

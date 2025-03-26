@@ -14,11 +14,12 @@ export function ThemeToggle() {
   if (!mounted) return null
 
   return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="border px-4 py-1 rounded text-sm hover:bg-gray-200 dark:hover:bg-white/10 transition"
-    >
-      {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-    </button>
+<button
+  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+  className="btn-toggle-theme"
+>
+  {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+</button>
+
   )
 }

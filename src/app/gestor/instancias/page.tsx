@@ -79,40 +79,37 @@ export default function GestorInstancias() {
 
   return (
     <Sidebar role="gestor">
-      <div className="max-w-5xl mx-auto py-6">
-        <h1 className="text-2xl font-bold mb-4">Gerenciar Instâncias</h1>
+      <div className="page-container max-w-5xl">
+        <h1 className="page-title">Gerenciar Instâncias</h1>
 
-        <form onSubmit={criarInstancia} className="mb-6 flex gap-2 items-center">
+        <form onSubmit={criarInstancia} className="form-row mb-6">
           <input
             type="text"
             placeholder="Nome da nova instância"
             value={novoNome}
             onChange={(e) => setNovoNome(e.target.value)}
-            className="px-3 py-1 rounded bg-zinc-800 border border-zinc-600 w-full"
+            className="input w-full"
           />
-          <button
-            type="submit"
-            className="bg-purple-600 hover:bg-purple-700 px-4 py-1.5 rounded text-sm"
-          >
+          <button type="submit" className="btn bg-purple-600 hover:bg-purple-700 text-sm">
             Criar
           </button>
         </form>
 
-        {loading && <p className="text-sm text-gray-400 mb-4">Carregando instâncias...</p>}
+        {loading && <p className="text-muted mb-4">Carregando instâncias...</p>}
 
         <div className="grid md:grid-cols-2 gap-4">
           {instanciasPaginadas.map((inst) => (
-            <div key={inst.id} className="bg-white/10 rounded-lg p-4 space-y-2">
-              <div className="flex justify-between items-center">
+            <div key={inst.id} className="card space-y-2">
+              <div className="card-header">
                 <h2 className="text-base font-semibold">{inst.name}</h2>
                 <span
-                  className={`text-xs px-2 py-0.5 rounded ${
+                  className={`status ${
                     inst.connectionStatus === 'open'
-                      ? 'bg-green-700'
+                      ? 'status-open'
                       : inst.connectionStatus === 'qr'
-                      ? 'bg-yellow-600'
-                      : 'bg-red-700'
-                  }`}
+                      ? 'status-qr'
+                      : 'status-disconnected'
+                  } text-xs`}
                 >
                   {inst.connectionStatus}
                 </span>
@@ -127,29 +124,29 @@ export default function GestorInstancias() {
                 </>
               )}
 
-              <div className="flex gap-1 flex-wrap mt-2">
+              <div className="btn-group flex-wrap mt-2 gap-1">
                 {inst.connectionStatus !== 'open' && (
                   <button
-                    className="bg-green-600 hover:bg-green-700 px-2 py-1 text-xs rounded"
+                    className="btn bg-green-600 hover:bg-green-700 text-xs"
                     onClick={() => acao('connect', inst.name)}
                   >
                     Conectar
                   </button>
                 )}
                 <button
-                  className="bg-red-600 hover:bg-red-700 px-2 py-1 text-xs rounded"
+                  className="btn bg-red-600 hover:bg-red-700 text-xs"
                   onClick={() => acao('logout', inst.name)}
                 >
                   Desconectar
                 </button>
                 <button
-                  className="bg-blue-600 hover:bg-blue-700 px-2 py-1 text-xs rounded"
+                  className="btn bg-blue-600 hover:bg-blue-700 text-xs"
                   onClick={fetchInstancias}
                 >
                   Atualizar
                 </button>
                 <button
-                  className="bg-white/10 hover:bg-red-900 px-2 py-1 text-xs rounded"
+                  className="btn bg-white/10 hover:bg-red-900 text-xs"
                   onClick={() => acao('delete', inst.name)}
                 >
                   Deletar
@@ -160,7 +157,7 @@ export default function GestorInstancias() {
         </div>
 
         {totalPages > 1 && (
-          <div className="flex justify-center mt-6 gap-2">
+          <div className="pagination">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
