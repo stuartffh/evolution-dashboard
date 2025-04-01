@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
 <main className="page-home">
-  <h1 className="page-title">Evolution Dashboard</h1>
+  <h1 className="page-title">ZapChatBR</h1>
   <button onClick={() => router.push("/login")} className="btn">
     Acessar Dashboard
   </button>

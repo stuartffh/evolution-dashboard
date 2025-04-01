@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
 import axios from 'axios';
 
-const MASTER_KEY = process.env.MASTER_KEY || 'zzz';
-const BASE_URL = 'https://panel.zzz.com/instance';
+const MASTER_KEY = process.env.MASTER_KEY || 'zapchatbr.com';
+const BASE_URL = 'https://panel.zapchatbr.com/instance';
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');

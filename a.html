@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Bola</title>
+
+    <style> 
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        #ball-container{
+          position:relative;  
+          width: 50px; /* Adicione tamanho para o contêiner da bola */
+          height: 50px; 
+        }
+
+        #game-score, #time-left {
+          font-size:2em;
+          text-align:center; 
+          margin-bottom:.5em; 
+         }
+        
+    </style>
+
+</head>
+<body>
+
+<div id="game-score">Clique na Bola!</div>
+<div id="time-left"></div>
+<div id="ball-container">
+  <div id="ball" style="width:50px;height:50px;background-color:red;border-radius:25px;position:absolute;"></div>  
+</div>
+
+<script type="text/javascript">
+
+    var ball = document.getElementById('ball');
+    var gameScore = document.getElementById('game-score');
+    var timeLeftDisplay = document.getElementById('time-left');
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function moveBall() {
+
+        const randomX = Math.floor(Math.random() * window.innerWidth);
+        const randomY = Math.floor(Math.random() * window.innerHeight);
+
+        ball.style.left = `${randomX - 25}px`; // subtrair metade do tamanho da bola para centralizá-la
+        ball.style.top = `${randomY - 25}px`;
+    }
+
+    function startGame(duration) {
+        
+        gameScore.innerText = 'Clique na Bola!';
+        timeLeftDisplay.innerText = duration + 's';
+
+        let scoreCounter = 0;
+
+        ball.addEventListener('click', function(event){
+            event.stopPropagation(); // Evita que o clique seja propagado para a bola
+            scoreCounter++;
+
+            if (scoreCounter === 1)
+                gameScore.innerText = `Você clicou ${scoreCounter} vez!`;
+            else
+                gameScore.innerText = `Você clicou ${scoreCounter} vezes!`;
+
+            moveBall();
+            ball.style.backgroundColor = getRandomColor();
+        });
+
+        let timeLeftIntervalId;
+        const startTime = Date.now();
+
+        function updateTimer() {
+            const currentTime = Date.now();
+            const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+            
+            if (elapsedTime >= duration) {
+                clearInterval(timeLeftIntervalId);
+
+                alert(`Tempo esgotado!\nClique em 'OK' para reiniciar o jogo.\nVocê teve ${scoreCounter} pontos!`);
+                
+                gameScore.innerText = 'Jogo Encerrado!';
+            } else {
+                timeLeftDisplay.innerText = `${duration - elapsedTime}s`;
+            }
+        }
+
+        timeLeftIntervalId = setInterval(updateTimer, 1000);
+    }
+
+    window.onload = function() {
+      startGame(30); // Inicia o jogo por 30 segundos.
+    };
+
+</script>
+
+</body>
+</html>

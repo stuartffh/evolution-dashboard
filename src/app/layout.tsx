@@ -1,10 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import ProtecaoCliente from "@/components/ProtecaoCliente";
 
 export const metadata: Metadata = {
-  title: "Painel Evolution",
+  title: "ZapChatBR",
   description: "Administre instâncias e clientes com estilo",
 };
 
@@ -23,7 +22,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ProtecaoCliente />
           {children}
         </ThemeProvider>
       </body>

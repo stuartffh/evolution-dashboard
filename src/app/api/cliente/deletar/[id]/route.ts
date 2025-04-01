@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const MASTER_KEY = process.env.MASTER_KEY || "zzz";
-const BASE_URL = "https://panel.zzz.com";
+const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
+const BASE_URL = "https://panel.zapchatbr.com";
 
 export async function DELETE(
   _req: NextRequest,

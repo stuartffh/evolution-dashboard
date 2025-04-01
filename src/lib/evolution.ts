@@ -1,8 +1,8 @@
 // src/lib/evolution.ts
 import axios from "axios";
 import { EvolutionInstance } from "./types";
-const BASE_URL = "https://panel.zzz.com";
-const MASTER_KEY = process.env.MASTER_KEY || "zzz";
+const BASE_URL = "https://panel.zapchatbr.com";
+const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 
 export async function listarInstanciasDisponiveis(): Promise<
   EvolutionInstance[]

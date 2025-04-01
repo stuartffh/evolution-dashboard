@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
 import axios, { AxiosError } from "axios";
 
-const MASTER_KEY = process.env.MASTER_KEY || "zzz";
-const BASE_URL = "https://panel.zzz.com";
+const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
+const BASE_URL = "https://panel.zapchatbr.com";
 
 export async function POST(req: NextRequest) {
   const auth = req.headers.get("authorization");
