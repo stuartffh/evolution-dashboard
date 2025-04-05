@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-primary: 'Raleway', sans-serif;
+  --font-primary: 'Montserrat', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --bg-main: linear-gradient(135deg, #0e1013, #16181d);
   --bg-card: linear-gradient(145deg, #1f2127, #2a2d35);
@@ -19,7 +19,6 @@ body {
   transition: var(--transition);
 }
 
-/* Dark mode */
 @keyframes gradient-move {
   0% {
     background-position: 0% 50%;
@@ -61,7 +60,6 @@ h3 {
   @apply text-4xl font-bold mb-6 text-white tracking-wider;
 }
 
-/* Gradiente animado */
 @keyframes gradient-move {
   0% {
     background-position: 0% 50%;
@@ -76,7 +74,7 @@ h3 {
 
 .page-login {
   @apply min-h-screen flex items-center justify-center px-4;
-  background: linear-gradient(135deg, #000000, #2a0247, #010147);
+  background-image: url(../images/ChatGPT\ Image\ 3\ de\ abr.\ de\ 2025\,\ 16_41_58.png);
   background-size: 200% 200%;
   animation: gradient-move 6s ease infinite;
 }
@@ -138,7 +136,6 @@ h3 {
   @apply text-lg font-semibold text-white/90;
 }
 
-/* STATUS */
 .status {
   @apply text-xs px-2 py-1 rounded font-medium tracking-wide;
 }
@@ -156,13 +153,16 @@ h3 {
   @apply text-gray-400 text-sm;
 }
 
-/* INPUTS */
 input,
 select,
 textarea {
   @apply w-full bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 transition;
   border: none;
-  border-bottom: 2px solid #23003f; /* Apenas borda inferior */
+  border-bottom: 2px solid #23003f;
+}
+
+button{
+  cursor: pointer;
 }
 
 input:focus,
@@ -170,41 +170,34 @@ select:focus,
 textarea:focus {
   border-bottom-color: #3b82f6; 
 }
-/* BOTÕES */
-.btn-logout {
-  @apply w-full py-2 text-sm mt-10;
-  background: linear-gradient(to right, #dc2626, #991b1b);
-}
-.btn-logout:hover {
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+
+.btn-sair {
+  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
+  background-color: #dc2626 !important;
 }
 
-button {
-  @apply font-semibold rounded-md transition duration-200 ease-in-out shadow;
-  background: linear-gradient(to right, #08132b, #1d042e);
-  color: #fff;
-}
-
-button:hover {
-  background: linear-gradient(to right, #2c0a42, #2563eb);
-  box-shadow: 0 0 8px rgba(60, 159, 240, 0.6);
-}
-
-.btn {
-  @apply px-4 py-2;
+.btn-sair:hover {
+  background-color: #b91c1c !important; 
 }
 
 .btn-outline {
   @apply border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white;
 }
 
-/* Custom buttons */
+.btn-sair {
+  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
+  background-color: #dc2626;
+  cursor: pointer;
+}
+
+.btn-sair:hover {
+  background-color: #b91c1c;
+}
 
 .btn-group {
   @apply grid grid-cols-2 md:grid-cols-4 gap-3;
 }
 
-/* MODAL */
 .modal {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80;
 }
@@ -222,7 +215,6 @@ button:hover {
   @apply text-center mt-8; 
 }
 
-
 .card {
   @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500; 
   background: transparent; 
@@ -236,21 +228,36 @@ button:hover {
   box-shadow: 0 0 10px 2px #3fc2ff; 
 }
 
+
 input,
 select,
 textarea {
-  @apply w-full bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 transition;
+  @apply w-full bg-transparent text-white placeholder:text-white focus:outline-none focus:ring-0 transition;
   border: none;
   border-bottom: 2px solid #6b21a8; 
 }
 
+select {
+  background-color: #220846;
+  color: white;
+}
+
+select option {
+  background-color: #2d105c; 
+  color: white;
+}
+
+select:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #8b5cf6; 
+}
 input:focus,
 select:focus,
 textarea:focus {
   border-bottom-color: #3b82f6; 
 }
 
-/* TABELAS */
 table {
   @apply w-full table-auto text-sm bg-transparent rounded-lg overflow-hidden; 
   border-collapse: collapse; 
@@ -288,13 +295,512 @@ tfoot td {
   @apply p-3 text-right; 
 }
 
-/* PAGINAÇÃO */
-.pagination {
-  @apply flex justify-center mt-6 gap-2;
+.sidebar {
+  @apply bg-black text-white flex flex-col justify-between transition-all duration-300 h-[50vh];
 }
-.pagination button {
-  @apply px-3 py-1 text-sm rounded transition;
+
+.sidebar-header {
+  @apply p-4 text-2xl font-bold;
 }
-.pagination .active {
-  @apply bg-purple-600;
+
+.sidebar-item {
+  @apply flex items-center hover:bg-gray-800 p-2 rounded-md cursor-pointer;
 }
+
+.sidebar-item-icon {
+  @apply h-5 w-5 mr-3;
+}
+
+.sidebar-footer {
+  @apply p-4 mt-auto;
+}
+
+.btn .btn-logout {
+  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
+  background-color: #dc2626;
+}
+.btn .btn-logout:hover {
+  background-color: #b91c1c;
+}
+
+
+
+.sidebar {
+  @apply bg-black text-white flex flex-col justify-between transition-all duration-300 h-[50vh];
+}
+
+.sidebar-header {
+  @apply p-4 text-2xl font-bold;
+}
+
+.sidebar-item {
+  @apply flex items-center hover:bg-gray-800 p-2 rounded-md cursor-pointer;
+}
+
+.sidebar-footer {
+  @apply p-4 mt-auto;
+}
+
+.page-cliente {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #6b46c1, #1a202c);
+  color: white;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center; /* Centraliza o texto */
+}
+
+.card {
+  background: transparent;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 768px;
+  margin-top: 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-box {
+  background: #2d3748;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+
+@media (max-width: 1024px) {
+  body {
+    overflow-x: hidden; 
+  }
+  
+  .login-box {
+    @apply max-w-lg;
+  }
+  .page-cliente {
+    flex-direction: column;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .page-content {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+    max-width: 90%; 
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr; 
+  }
+  
+  .card p {
+    display: block; 
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-box {
+    padding: 1rem;
+    max-width: 90%; 
+  }
+}
+
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden; 
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .page-content {
+    padding: 0.5rem;
+  }
+  
+  .card {
+    background: transparent; 
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: none; 
+    border: none; 
+  }
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr; 
+  }
+  
+  .card p {
+    display: block; 
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-box {
+    padding: 0.75rem;
+    max-width: 90%; 
+  }
+  
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+  
+  .sidebar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); 
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0); 
+  }
+  
+  .sidebar-header {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .sidebar-item {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 639px) {
+  .login-box {
+    @apply max-w-sm;
+  }
+
+  .form-title {
+    @apply text-xl;
+  }
+
+  .input {
+    @apply text-sm;
+  }
+
+  .btn {
+    @apply text-sm py-2;
+  }
+}
+
+@media ( max-width: 451px) { 
+  body {
+    overflow-x: hidden; 
+  }
+  .page-container{
+    width: 400px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .page-content {
+    padding: 0.5rem;
+  }
+
+  .card {
+    padding: 0.5rem;
+    max-width: 100%; 
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  .card p {
+    display: block; 
+    margin-bottom: 0.5rem;
+  }
+
+  .card-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-box {
+    padding: 0.5rem;
+    max-width: 100%; 
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .sidebar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); 
+    z-index: 1000; 
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    transform: translateX(0); 
+  }
+
+  .sidebar-header {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .sidebar-item {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar-footer {
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 451px) {
+  .text-lg { font-size: 1rem; }
+  .text-xl { font-size: 1.25rem; }
+  .table th, .table td { padding: 0.3rem; font-size: 0.875rem; }
+}
+
+@media ( max-width: 390px) {
+  body {
+    overflow-x: hidden; 
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .page-content {
+    padding: 0.5rem;
+  }
+
+  .card {
+    padding: 0.5rem;
+    max-width: 100%; 
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  .card p {
+    display: block; 
+    margin-bottom: 0.5rem;
+  }
+
+  .card-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-box {
+    padding: 0.5rem;
+    max-width: 100%; 
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .sidebar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); 
+    z-index: 1000; 
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    transform: translateX(0); 
+  }
+
+  .sidebar-header {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .sidebar-item {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar-footer {
+    padding: 1rem;
+    text-align: center;
+  }
+  .page-container{
+    width: 200px;
+    padding: 25px;
+  }
+  .flex {
+    flex-direction: column;
+  }
+  
+  .flex-1{
+    padding: 15px;
+  }
+  .w-250px {
+    width: 100%;
+  }
+  
+  .p-4 {
+    padding: 0.8rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.3rem;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .menu-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+  }
+}
+
+
+
+
