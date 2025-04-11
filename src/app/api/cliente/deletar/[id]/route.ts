@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
-
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
+  const id = context.params?.id;
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
 
@@ -23,7 +18,13 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
       ? `/instance/connect/${id}`
       : acao === "logout"
       ? `/instance/logout/${id}`
-      : `/instance/delete/${id}`;
+      : acao === "delete"
+      ? `/instance/delete/${id}`
+      : null;
+
+  if (!endpoint) {
+    return NextResponse.json({ error: "Ação inválida" }, { status: 400 });
+  }
 
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
