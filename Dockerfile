@@ -1,38 +1,41 @@
-# Etapa 1 – Build da aplicação
+# Etapa de build
 FROM node:22.14.0-alpine AS builder
 
-# Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia apenas os arquivos de dependência
+# Copia arquivos de dependência
 COPY package*.json ./
+COPY prisma ./prisma
 
-# Instala as dependências
+# Instala dependências
 RUN npm install
 
-# Copia o restante dos arquivos
+# Gera tipos do Prisma
+RUN npx prisma generate
+
+# Copia o restante do código
 COPY . .
 
-# Desativa ESLint no build (caso use regras rigorosas)
+# Desativa lint no build (evita falhas com ESLint)
 ENV NEXT_DISABLE_ESLINT=true
 
-# Gera o build de produção
+# Gera build de produção do Next.js
 RUN npm run build
 
-# Etapa 2 – Container final para rodar a aplicação
+
+# Etapa final de produção
 FROM node:22.14.0-alpine
 
 WORKDIR /app
 
-# Copia arquivos essenciais da build anterior
+# Copia apenas o necessário da etapa de build
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.js ./next.config.js
+COPY --from=builder /app/prisma ./prisma
 
-# Define a porta padrão da aplicação
 EXPOSE 3000
 
-# Comando de inicialização
 CMD ["npm", "start"]
