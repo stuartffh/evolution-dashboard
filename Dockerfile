@@ -6,9 +6,7 @@ WORKDIR /app
 # Copia configs e pacotes primeiro (melhora cache)
 COPY package*.json ./
 COPY tsconfig.json ./
-COPY next.config.js ./
 COPY eslint.config.mjs ./
-COPY .eslintrc.json ./
 COPY .env ./
 
 # Copia os arquivos do Prisma
