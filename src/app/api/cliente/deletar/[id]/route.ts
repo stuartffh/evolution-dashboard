@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
-
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } } // Corrigido a tipagem aqui
+) {
+  const { id } = params;
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
 
