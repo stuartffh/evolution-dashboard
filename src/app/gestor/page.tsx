@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Cliente, EvolutionInstance } from "@/lib/types";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Importa os ícones do Heroicons
-import path from "path";
-import type { fill, stroke } from "pdfkit";
+
 
 export default function GestorPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
