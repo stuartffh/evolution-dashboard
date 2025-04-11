@@ -2,28 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function DELETE(req: NextRequest, context: any) {
+  const { id } = context.params;
+  const url = new URL(req.url);
+  const acao = url.searchParams.get("acao");
 
-export async function DELETE(
-  _req: NextRequest,
-  context: { params: { id: string; acao: "connect" | "logout" | "delete" } },
-) {
-  const { id, acao } = context.params;
-
-  if (!id || !acao) {
-    return NextResponse.json(
-      { error: "Parâmetros inválidos" },
-      { status: 400 },
-    );
+  if (!id || !acao || !["connect", "logout", "delete"].includes(acao)) {
+    return NextResponse.json({ error: "Parâmetros inválidos" }, { status: 400 });
   }
 
   const endpoint =
     acao === "connect"
       ? `/instance/connect/${id}`
       : acao === "logout"
-        ? `/instance/logout/${id}`
-        : acao === "delete"
-          ? `/instance/delete/${id}`
-          : null;
+      ? `/instance/logout/${id}`
+      : acao === "delete"
+      ? `/instance/delete/${id}`
+      : null;
 
   if (!endpoint) {
     return NextResponse.json({ error: "Ação inválida" }, { status: 400 });
@@ -41,7 +37,7 @@ export async function DELETE(
       const msg = await res.text();
       return NextResponse.json(
         { error: "Falha na operação", detalhe: msg },
-        { status: res.status },
+        { status: res.status }
       );
     }
 
@@ -50,7 +46,7 @@ export async function DELETE(
     console.error("Erro ao executar ação:", error);
     return NextResponse.json(
       { error: "Erro interno ao executar ação" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

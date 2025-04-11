@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Cliente, EvolutionInstance } from "@/lib/types";
-import Sidebar from "@/components/Sidebar";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Importa os ícones do Heroicons
 
 export default function GestorPage() {
