@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Cliente, EvolutionInstance } from "@/lib/types";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Importa os ícones do Heroicons
+import type { headers } from "next/headers";
 
 
 export default function GestorPage() {
@@ -101,7 +102,7 @@ export default function GestorPage() {
   const handleDelete = async (id: string) => {
     if (!confirm("Tem certeza que deseja deletar?")) return;
 
-    await fetch(`/api/cliente/deletar/${id}`, {
+    await fetch(`/api/cliente/deletar/${id}?acao=delete`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

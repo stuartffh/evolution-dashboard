@@ -57,9 +57,9 @@ export default function GestorInstancias() {
     const confirmar = tipo === 'delete' ? confirm('Deseja deletar esta instância?') : true;
     if (!confirmar) return;
 
-    const method = tipo === 'delete' ? 'DELETE' : 'GET';
-    const res = await fetch(`/api/evolution/instancias/${tipo}/${id}`, {
-      method,
+    const url = `/api/evolution/instancias?id=${id}&acao=${tipo}`;
+    const res = await fetch(url, {
+      method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -82,7 +82,7 @@ export default function GestorInstancias() {
       <div className="page-container max-w-5xl">
         <h1 className="page-title">Gerenciar Instâncias</h1>
 
-        <form onSubmit={criarInstancia} className="form-row mb-6">
+        <form onSubmit={criarInstancia} className="form-row mb-6 flex gap-3">
           <input
             type="text"
             placeholder="Nome da nova instância"
@@ -111,7 +111,11 @@ export default function GestorInstancias() {
                       : 'status-disconnected'
                   } text-xs`}
                 >
-                  {inst.connectionStatus}
+                  {inst.connectionStatus === 'open'
+                    ? 'Conectado'
+                    : inst.connectionStatus === 'qr'
+                    ? 'QR Code'
+                    : 'Desconectado'}
                 </span>
               </div>
 
@@ -157,14 +161,14 @@ export default function GestorInstancias() {
         </div>
 
         {totalPages > 1 && (
-          <div className="pagination">
+          <div className="pagination mt-6 flex gap-2 justify-center">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
-                className={`px-3 py-1 text-sm rounded ${
+                className={`px-3 py-1 text-sm rounded transition ${
                   paginaAtual === i + 1
-                    ? 'bg-purple-600'
-                    : 'bg-white/10 hover:bg-white/20'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
                 onClick={() => setPaginaAtual(i + 1)}
               >

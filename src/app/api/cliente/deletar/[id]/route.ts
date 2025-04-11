@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function DELETE(req: NextRequest, context: any) {
-  const { id } = context.params;
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
+  const id = context.params?.id;
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
 
