@@ -3,9 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
-
-export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
-  const id = context.params?.id;
+export async function DELETE(req: NextRequest, context: any) {
+  const { id } = context.params;
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
 
@@ -18,13 +17,7 @@ export async function DELETE(req: NextRequest, context: { params: { id: string }
       ? `/instance/connect/${id}`
       : acao === "logout"
       ? `/instance/logout/${id}`
-      : acao === "delete"
-      ? `/instance/delete/${id}`
-      : null;
-
-  if (!endpoint) {
-    return NextResponse.json({ error: "Ação inválida" }, { status: 400 });
-  }
+      : `/instance/delete/${id}`;
 
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
