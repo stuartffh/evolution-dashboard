@@ -1,7 +1,9 @@
+import { env } from "process";
+
 export const fakeUsers = [
   {
-    email: "admin@zzz.com",
-    senha: "admin123",
+    email: process.env.ADMIN_USER,
+    senha: process.env.ADMIN_SENHA,
     tipo: "gestor",
   },
 ];

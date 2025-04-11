@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   const { email, senha } = await req.json();
 
   // Gestor fixo
-  if (email === 'admin@zzz.com' && senha === 'admin123') {
+  if (email === process.env.ADMIN_USER && senha === process.env.ADMIN_SENHA) {
     const token = generateToken({
       email,
       tipo: 'gestor',
