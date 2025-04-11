@@ -3,21 +3,27 @@ FROM node:22.14.0-alpine AS builder
 
 WORKDIR /app
 
-# Copia arquivos de dependência
+# Copia configs e pacotes primeiro (melhora cache)
 COPY package*.json ./
+COPY tsconfig.json ./
+COPY next.config.js ./
+COPY eslint.config.mjs ./
+COPY .eslintrc.json ./
+COPY .env ./
+
+# Copia os arquivos do Prisma
 COPY prisma ./prisma
 
 # Instala dependências
-RUN npm install 
-RUN npm install --save-dev @types/cookie
+RUN npm install
 
 # Gera tipos do Prisma
 RUN npx prisma generate
 
-# Copia o restante do código
+# Copia o restante do código do projeto
 COPY . .
 
-# Desativa lint no build (evita falhas com ESLint)
+# Desativa ESLint durante o build (somente para produção)
 ENV NEXT_DISABLE_ESLINT=true
 
 # Gera build de produção do Next.js
@@ -29,7 +35,7 @@ FROM node:22.14.0-alpine
 
 WORKDIR /app
 
-# Copia apenas o necessário da etapa de build
+# Copia apenas os arquivos necessários da etapa de build
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
