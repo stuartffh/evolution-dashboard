@@ -1,13 +1,17 @@
+import type { error } from "console";
+import type { id } from "date-fns/locale";
+import { get } from "http";
 import { NextRequest, NextResponse } from "next/server";
+import { json } from "stream/consumers";
 
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } } // Corrigido a tipagem aqui
+  context: { params: { id: string } } // Formato correto para Next.js 13+
 ) {
-  const { id } = params;
+  const { id } = context.params; // Acesse params através do context
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
 
