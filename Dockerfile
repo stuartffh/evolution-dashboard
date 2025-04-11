@@ -8,7 +8,8 @@ COPY package*.json ./
 COPY prisma ./prisma
 
 # Instala dependências
-RUN npm install
+RUN npm install 
+RUN npm install --save-dev @types/cookie
 
 # Gera tipos do Prisma
 RUN npx prisma generate
