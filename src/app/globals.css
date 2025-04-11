@@ -72,6 +72,48 @@ h3 {
   }
 }
 
+
+  .modal {
+    @apply fixed inset-0 flex items-center justify-center bg-[#000000] z-[1000]; 
+  }
+  
+  .modal-box {
+    @apply bg-[#000000] p-8 rounded-lg text-white border border-[#00f0ff] w-[90%] max-w-[300px] flex flex-col items-center;
+  }
+  
+  .btn-qr {
+    @apply bg-[#dc2626] text-white mt-4 w-[60%] py-2 rounded shadow-md transition-all duration-200;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .qr-container {
+    @apply flex justify-center items-center w-[250px] h-[250px] my-6 bg-[#000000]; 
+  }
+  
+  .qr-image {
+    @apply max-w-full max-h-full border border-white/20 rounded;
+  }
+  
+  .loading-text {
+    @apply text-[#9ca3af] text-center bg-black p-4;
+  }
+  
+  .close-btn:hover {
+    @apply bg-[#b91c1c];
+  }
+  
+  .text-gray-400 {
+    @apply text-[#9ca3af] text-center;
+  }
+  
+  .border-white-20 {
+    @apply border border-white/20 rounded;
+  }
+  
+  .mx-auto {
+    @apply mx-auto;
+  }
+
 .page-login {
   @apply min-h-screen flex items-center justify-center px-4;
   background-image: url(../images/ChatGPT\ Image\ 3\ de\ abr.\ de\ 2025\,\ 16_41_58.png);
@@ -404,7 +446,7 @@ tfoot td {
 }
 
 .modal-box {
-  background: #2d3748;
+  background: #0e0018;
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
