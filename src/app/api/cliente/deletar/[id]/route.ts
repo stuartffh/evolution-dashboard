@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 
+interface RouteContext {
+  params: {
+    id: string;
+  };
+}
+
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
-export async function DELETE(req: NextRequest, context: any) {
+export async function DELETE(req: NextRequest, context: RouteContext) {
   const { id } = context.params;
   const url = new URL(req.url);
   const acao = url.searchParams.get("acao");
