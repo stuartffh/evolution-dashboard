@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Cliente, EvolutionInstance } from "@/lib/types";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Importa os ícones do Heroicons
-import type { headers } from "next/headers";
+
 
 
 export default function GestorPage() {
