@@ -67,7 +67,14 @@ export default function LoginPage() {
           onChange={(e) => setSenha(e.target.value)}
         />
 
-        <button onClick={handleLogin} className="btn w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+<button
+          onClick={handleLogin}
+          className="btn w-full py-2 font-semibold rounded-md transition duration-200 ease-in-out shadow"
+          style={{
+            background: 'linear-gradient(to right, #08132b, #1d042e)',
+            color: '#fff',
+          }}
+        >
           Entrar
         </button>
       </div>

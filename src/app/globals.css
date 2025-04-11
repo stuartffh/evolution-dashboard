@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-primary: 'Raleway', sans-serif;
+  --font-primary: 'Montserrat', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --bg-main: linear-gradient(135deg, #0e1013, #16181d);
   --bg-card: linear-gradient(145deg, #1f2127, #2a2d35);
@@ -19,7 +19,6 @@ body {
   transition: var(--transition);
 }
 
-/* Dark mode */
 @keyframes gradient-move {
   0% {
     background-position: 0% 50%;
@@ -61,22 +60,13 @@ h3 {
   @apply text-4xl font-bold mb-6 text-white tracking-wider;
 }
 
-/* Gradiente animado */
-@keyframes gradient-move {
-  0% {
-    background-position: 0% 50%;
+  .modal-box {
+    @apply bg-[#000000] p-8 rounded-lg text-white border border-[#00f0ff] w-[90%] max-w-[300px] flex flex-col items-center;
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 .page-login {
   @apply min-h-screen flex items-center justify-center px-4;
-  background: linear-gradient(135deg, #000000, #2a0247, #010147);
+  background-image: url(../images/ChatGPT\ Image\ 3\ de\ abr.\ de\ 2025\,\ 16_41_58.png);
   background-size: 200% 200%;
   animation: gradient-move 6s ease infinite;
 }
@@ -120,25 +110,6 @@ h3 {
   @apply max-w-6xl mx-auto py-8 px-4;
 }
 
-.card {
-  @apply p-6 rounded-xl shadow-lg space-y-4 border border-white/10;
-  background: var(--bg-card);
-  transition: var(--transition);
-}
-
-.card:hover {
-  box-shadow: 0 0 0 2px var(--border-glow);
-}
-
-.card-header {
-  @apply flex justify-between items-center;
-}
-
-.card-title {
-  @apply text-lg font-semibold text-white/90;
-}
-
-/* STATUS */
 .status {
   @apply text-xs px-2 py-1 rounded font-medium tracking-wide;
 }
@@ -152,66 +123,38 @@ h3 {
   @apply bg-red-700 text-white;
 }
 
-.text-muted {
-  @apply text-gray-400 text-sm;
-}
-
-/* INPUTS */
 input,
 select,
 textarea {
   @apply w-full bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 transition;
   border: none;
-  border-bottom: 2px solid #23003f; /* Apenas borda inferior */
+  border-bottom: 2px solid #23003f;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-bottom-color: #3b82f6; 
-}
-/* BOTÕES */
-.btn-logout {
-  @apply w-full py-2 text-sm mt-10;
-  background: linear-gradient(to right, #dc2626, #991b1b);
-}
-.btn-logout:hover {
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+button{
+  cursor: pointer;
 }
 
-button {
-  @apply font-semibold rounded-md transition duration-200 ease-in-out shadow;
-  background: linear-gradient(to right, #08132b, #1d042e);
-  color: #fff;
+.btn-sair {
+  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
+  background-color: #dc2626 !important;
+  cursor: pointer;
 }
 
-button:hover {
-  background: linear-gradient(to right, #2c0a42, #2563eb);
-  box-shadow: 0 0 8px rgba(60, 159, 240, 0.6);
+.btn-sair:hover {
+  background-color: #b91c1c !important; 
 }
-
-.btn {
-  @apply px-4 py-2;
-}
-
-.btn-outline {
-  @apply border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white;
-}
-
-/* Custom buttons */
 
 .btn-group {
   @apply grid grid-cols-2 md:grid-cols-4 gap-3;
 }
 
-/* MODAL */
 .modal {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80;
 }
+
 .modal-box {
-  @apply rounded-2xl p-6 shadow-2xl text-center;
-  background: var(--bg-card);
-  border: 1px solid white/10;
+  @apply bg-[#0e0018] text-center p-6 rounded shadow-md max-w-[400px] w-full;
 }
 
 .page-title {
@@ -222,14 +165,10 @@ button:hover {
   @apply text-center mt-8; 
 }
 
-
 .card {
-  @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500; 
-  background: transparent; 
+  @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500 max-w-[800px] h-[400px] mx-auto;
+  background: transparent;
   transition: var(--transition);
-  max-width: 800px; 
-  height: 400px; 
-  margin: auto;
 }
 
 .card:hover {
@@ -239,18 +178,32 @@ button:hover {
 input,
 select,
 textarea {
-  @apply w-full bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 transition;
+  @apply w-full bg-transparent text-white placeholder:text-white focus:outline-none focus:ring-0 transition;
   border: none;
   border-bottom: 2px solid #6b21a8; 
 }
 
+select {
+  background-color: #220846;
+  color: white;
+}
+
+select option {
+  background-color: #2d105c; 
+  color: white;
+}
+
+select:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #8b5cf6; 
+}
 input:focus,
 select:focus,
 textarea:focus {
   border-bottom-color: #3b82f6; 
 }
 
-/* TABELAS */
 table {
   @apply w-full table-auto text-sm bg-transparent rounded-lg overflow-hidden; 
   border-collapse: collapse; 
@@ -288,13 +241,371 @@ tfoot td {
   @apply p-3 text-right; 
 }
 
-/* PAGINAÇÃO */
-.pagination {
-  @apply flex justify-center mt-6 gap-2;
+.sidebar {
+  @apply bg-black text-white flex flex-col justify-between transition-all duration-300 h-[50vh];
 }
-.pagination button {
-  @apply px-3 py-1 text-sm rounded transition;
+
+.sidebar-header {
+  @apply p-4 text-2xl font-bold;
 }
-.pagination .active {
-  @apply bg-purple-600;
+
+.sidebar-item {
+  @apply flex items-center hover:bg-gray-800 p-2 rounded-md cursor-pointer;
 }
+
+.sidebar-item-icon {
+  @apply h-5 w-5 mr-3;
+}
+
+.sidebar-footer {
+  @apply p-4 mt-auto;
+}
+
+.btn .btn-logout {
+  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
+  background-color: #dc2626;
+}
+.btn .btn-logout:hover {
+  background-color: #b91c1c;
+}
+
+.page-cliente {
+  @apply flex flex-col min-h-screen bg-gradient-to-b from-[#6b46c1] to-[#1a202c] text-white;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.page-content {
+  @apply flex-1 flex flex-col items-center justify-center p-4 text-center;
+}
+
+.card {
+  @apply bg-transparent p-6 rounded-lg shadow-md w-full max-w-[768px] mt-4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  @apply flex justify-between items-center mb-4;
+}
+
+.card-grid {
+  @apply grid grid-cols-2 gap-4 mb-6;
+}
+
+
+.card-buttons {
+  @apply flex flex-row gap-4;
+}
+
+.close-btn {
+  @apply bg-[#dc2626] text-white mt-4 w-[60%] p-2 rounded-md shadow-md;
+}
+
+
+@media (max-width: 1024px) {
+  body {
+    overflow-x: hidden; 
+  }
+  
+  .login-box {
+    @apply max-lg:max-w-lg;
+  }
+  
+  .page-cliente {
+    @apply max-lg:flex-col;
+  }
+  
+  .page-header {
+    @apply max-lg:flex-col max-lg:items-center max-lg:text-center max-lg:p-4;
+  }
+  
+  .page-content {
+    @apply max-lg:p-4;
+  }
+  
+  .card {
+    @apply max-lg:p-4 max-lg:max-w-[90%];
+  }
+  
+  .card-header {
+    @apply max-lg:flex-col max-lg:items-center max-lg:text-center;
+  }
+  
+  .card-grid {
+    @apply max-lg:grid-cols-1;
+  }
+  
+  .card p {
+    @apply max-lg:block max-lg:mb-2;
+  }
+  
+  .card-buttons {
+    @apply max-lg:flex-col max-lg:gap-2;
+  }
+  
+  .modal-box {
+    @apply max-lg:p-4 max-lg:max-w-[90%];
+  }
+  
+}
+
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden; 
+  }
+  
+  .page-header {
+    @apply flex flex-col items-center text-center p-2;
+  }
+  
+  .page-content {
+    @apply p-2;
+  }
+  
+  .card {
+    @apply bg-transparent p-6 rounded shadow-none border-none;
+  }
+  
+  .card-header {
+    @apply flex flex-col items-center text-center;
+  }
+  
+  .card-grid {
+    @apply grid grid-cols-1;
+  }
+  
+  .card p {
+    @apply block mb-2;
+  }
+  
+  .card-buttons {
+    @apply flex flex-col gap-2;
+  }
+  
+  .modal-box {
+    @apply p-3 max-w-[90%];
+  }
+  
+  .btn {
+    @apply text-sm p-2;
+  }
+  
+  .sidebar {
+    @apply fixed top-0 left-0 w-full h-full bg-black/90 z-[1000];
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-header {
+    @apply p-4 text-center text-2xl font-bold;
+  }
+  
+  .sidebar-item {
+    @apply p-4 text-center text-base border-b border-white/10;
+  }
+  
+  .sidebar-footer {
+    @apply p-4 text-center;
+  }
+  
+}
+
+@media (max-width: 639px) {
+  .login-box {
+    @apply max-w-sm;
+  }
+
+  .form-title {
+    @apply text-xl;
+  }
+
+  .input {
+    @apply text-sm;
+  }
+
+  .btn {
+    @apply text-sm py-2;
+  }
+}
+
+@media ( max-width: 451px) { 
+  body {
+    overflow-x: hidden; 
+  }
+
+  .page-container {
+    @apply w-[400px];
+  }
+  
+  .page-header {
+    @apply flex flex-col items-center text-center p-2;
+  }
+  
+  .page-content {
+    @apply p-2;
+  }
+  
+  .card {
+    @apply p-2 max-w-full;
+  }
+  
+  .card-header {
+    @apply flex flex-col items-center text-center;
+  }
+  
+  .card-grid {
+    @apply grid grid-cols-1;
+  }
+  
+  .card p {
+    @apply block mb-2;
+  }
+  
+  .card-buttons {
+    @apply flex flex-col gap-2;
+  }
+  
+  .modal-box {
+    @apply p-2 max-w-full;
+  }
+  
+  .btn {
+    @apply text-xs p-2;
+  }
+  
+  .sidebar {
+    @apply fixed top-0 left-0 w-full h-full bg-black/90 z-[1000];
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-header {
+    @apply p-4 text-center text-xl font-bold;
+  }
+  
+  .sidebar-item {
+    @apply p-4 text-center text-sm border-b border-white/10;
+  }
+  
+  .sidebar-footer {
+    @apply p-4 text-center;
+  }
+  
+}
+
+@media (max-width: 451px) {
+  .text-lg { font-size: 1rem; }
+  .text-xl { font-size: 1.25rem; }
+  .table th, .table td { padding: 0.3rem; font-size: 0.875rem; }
+}
+
+@media ( max-width: 390px) {
+  body {
+    @apply overflow-x-hidden;
+  }
+  
+  .page-header {
+    @apply flex flex-col items-center text-center p-2;
+  }
+  
+  .page-content {
+    @apply p-2;
+  }
+  
+  .card {
+    @apply p-2 max-w-full;
+  }
+  
+  .card-header {
+    @apply flex flex-col items-center text-center;
+  }
+  
+  .card-grid {
+    @apply grid grid-cols-1;
+  }
+  
+  .card p {
+    @apply block mb-2;
+  }
+  
+  .card-buttons {
+    @apply flex flex-col gap-2;
+  }
+  
+  .modal-box {
+    @apply p-2 max-w-full;
+  }
+  
+  .btn {
+    @apply text-xs p-2;
+  }
+  
+  .page-container {
+    @apply w-[200px] p-[25px];
+  }
+  
+  .flex {
+    @apply flex flex-col;
+  }
+  
+  .flex-1 {
+    @apply p-[15px];
+  }
+  
+  .w-250px {
+    @apply w-full;
+  }
+  
+  .p-4 {
+    @apply p-[0.8rem];
+  }
+  
+  .text-2xl {
+    @apply text-[1.3rem];
+  }
+  
+  .sidebar {
+    @apply absolute top-0 left-0 w-full h-screen bg-black/90 z-[1000];
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-header {
+    @apply p-4 text-center text-xl font-bold;
+  }
+  
+  .sidebar-item {
+    @apply p-4 text-center text-sm border-b border-white/10;
+  }
+  
+  .sidebar-footer {
+    @apply p-4 text-center;
+  }
+  
+  .menu-button {
+    @apply absolute top-[10px] left-[10px] z-[100];
+  }
+  
+}
+
+
+
+
