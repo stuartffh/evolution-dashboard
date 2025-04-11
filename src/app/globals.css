@@ -60,58 +60,8 @@ h3 {
   @apply text-4xl font-bold mb-6 text-white tracking-wider;
 }
 
-@keyframes gradient-move {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-  .modal {
-    @apply fixed inset-0 flex items-center justify-center bg-[#000000] z-[1000]; 
-  }
-  
   .modal-box {
     @apply bg-[#000000] p-8 rounded-lg text-white border border-[#00f0ff] w-[90%] max-w-[300px] flex flex-col items-center;
-  }
-  
-  .btn-qr {
-    @apply bg-[#dc2626] text-white mt-4 w-[60%] py-2 rounded shadow-md transition-all duration-200;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  .qr-container {
-    @apply flex justify-center items-center w-[250px] h-[250px] my-6 bg-[#000000]; 
-  }
-  
-  .qr-image {
-    @apply max-w-full max-h-full border border-white/20 rounded;
-  }
-  
-  .loading-text {
-    @apply text-[#9ca3af] text-center bg-black p-4;
-  }
-  
-  .close-btn:hover {
-    @apply bg-[#b91c1c];
-  }
-  
-  .text-gray-400 {
-    @apply text-[#9ca3af] text-center;
-  }
-  
-  .border-white-20 {
-    @apply border border-white/20 rounded;
-  }
-  
-  .mx-auto {
-    @apply mx-auto;
   }
 
 .page-login {
@@ -160,24 +110,6 @@ h3 {
   @apply max-w-6xl mx-auto py-8 px-4;
 }
 
-.card {
-  @apply p-6 rounded-xl shadow-lg space-y-4 border border-white/10;
-  background: var(--bg-card);
-  transition: var(--transition);
-}
-
-.card:hover {
-  box-shadow: 0 0 0 2px var(--border-glow);
-}
-
-.card-header {
-  @apply flex justify-between items-center;
-}
-
-.card-title {
-  @apply text-lg font-semibold text-white/90;
-}
-
 .status {
   @apply text-xs px-2 py-1 rounded font-medium tracking-wide;
 }
@@ -189,10 +121,6 @@ h3 {
 }
 .status-disconnected {
   @apply bg-red-700 text-white;
-}
-
-.text-muted {
-  @apply text-gray-400 text-sm;
 }
 
 input,
@@ -207,33 +135,14 @@ button{
   cursor: pointer;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-bottom-color: #3b82f6; 
-}
-
 .btn-sair {
   @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
   background-color: #dc2626 !important;
-}
-
-.btn-sair:hover {
-  background-color: #b91c1c !important; 
-}
-
-.btn-outline {
-  @apply border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white;
-}
-
-.btn-sair {
-  @apply w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center;
-  background-color: #dc2626;
   cursor: pointer;
 }
 
 .btn-sair:hover {
-  background-color: #b91c1c;
+  background-color: #b91c1c !important; 
 }
 
 .btn-group {
@@ -243,10 +152,9 @@ textarea:focus {
 .modal {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80;
 }
+
 .modal-box {
-  @apply rounded-2xl p-6 shadow-2xl text-center;
-  background: var(--bg-card);
-  border: 1px solid white/10;
+  @apply bg-[#0e0018] text-center p-6 rounded shadow-md max-w-[400px] w-full;
 }
 
 .page-title {
@@ -258,18 +166,14 @@ textarea:focus {
 }
 
 .card {
-  @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500; 
-  background: transparent; 
+  @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500 max-w-[800px] h-[400px] mx-auto;
+  background: transparent;
   transition: var(--transition);
-  max-width: 800px; 
-  height: 400px; 
-  margin: auto;
 }
 
 .card:hover {
   box-shadow: 0 0 10px 2px #3fc2ff; 
 }
-
 
 input,
 select,
@@ -365,30 +269,8 @@ tfoot td {
   background-color: #b91c1c;
 }
 
-
-
-.sidebar {
-  @apply bg-black text-white flex flex-col justify-between transition-all duration-300 h-[50vh];
-}
-
-.sidebar-header {
-  @apply p-4 text-2xl font-bold;
-}
-
-.sidebar-item {
-  @apply flex items-center hover:bg-gray-800 p-2 rounded-md cursor-pointer;
-}
-
-.sidebar-footer {
-  @apply p-4 mt-auto;
-}
-
 .page-cliente {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #6b46c1, #1a202c);
-  color: white;
+  @apply flex flex-col min-h-screen bg-gradient-to-b from-[#6b46c1] to-[#1a202c] text-white;
 }
 
 .page-header {
@@ -399,59 +281,29 @@ tfoot td {
 }
 
 .page-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  text-align: center; /* Centraliza o texto */
+  @apply flex-1 flex flex-col items-center justify-center p-4 text-center;
 }
 
 .card {
-  background: transparent;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  @apply bg-transparent p-6 rounded-lg shadow-md w-full max-w-[768px] mt-4;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 768px;
-  margin-top: 1rem;
 }
 
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  @apply flex justify-between items-center mb-4;
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  @apply grid grid-cols-2 gap-4 mb-6;
 }
+
 
 .card-buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  @apply flex flex-row gap-4;
 }
 
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.75);
-}
-
-.modal-box {
-  background: #0e0018;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
+.close-btn {
+  @apply bg-[#dc2626] text-white mt-4 w-[60%] p-2 rounded-md shadow-md;
 }
 
 
@@ -461,52 +313,45 @@ tfoot td {
   }
   
   .login-box {
-    @apply max-w-lg;
+    @apply max-lg:max-w-lg;
   }
+  
   .page-cliente {
-    flex-direction: column;
+    @apply max-lg:flex-col;
   }
   
   .page-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
+    @apply max-lg:flex-col max-lg:items-center max-lg:text-center max-lg:p-4;
   }
   
   .page-content {
-    padding: 1rem;
+    @apply max-lg:p-4;
   }
   
   .card {
-    padding: 1rem;
-    max-width: 90%; 
+    @apply max-lg:p-4 max-lg:max-w-[90%];
   }
   
   .card-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @apply max-lg:flex-col max-lg:items-center max-lg:text-center;
   }
   
   .card-grid {
-    grid-template-columns: 1fr; 
+    @apply max-lg:grid-cols-1;
   }
   
   .card p {
-    display: block; 
-    margin-bottom: 0.5rem;
+    @apply max-lg:block max-lg:mb-2;
   }
   
   .card-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
+    @apply max-lg:flex-col max-lg:gap-2;
   }
   
   .modal-box {
-    padding: 1rem;
-    max-width: 90%; 
+    @apply max-lg:p-4 max-lg:max-w-[90%];
   }
+  
 }
 
 
@@ -516,87 +361,63 @@ tfoot td {
   }
   
   .page-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0.5rem;
+    @apply flex flex-col items-center text-center p-2;
   }
   
   .page-content {
-    padding: 0.5rem;
+    @apply p-2;
   }
   
   .card {
-    background: transparent; 
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: none; 
-    border: none; 
+    @apply bg-transparent p-6 rounded shadow-none border-none;
   }
+  
   .card-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @apply flex flex-col items-center text-center;
   }
   
   .card-grid {
-    grid-template-columns: 1fr; 
+    @apply grid grid-cols-1;
   }
   
   .card p {
-    display: block; 
-    margin-bottom: 0.5rem;
+    @apply block mb-2;
   }
   
   .card-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
+    @apply flex flex-col gap-2;
   }
   
   .modal-box {
-    padding: 0.75rem;
-    max-width: 90%; 
+    @apply p-3 max-w-[90%];
   }
   
   .btn {
-    font-size: 0.875rem;
-    padding: 0.5rem;
+    @apply text-sm p-2;
   }
   
   .sidebar {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9); 
-    z-index: 1000;
+    @apply fixed top-0 left-0 w-full h-full bg-black/90 z-[1000];
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
   
   .sidebar.open {
-    transform: translateX(0); 
+    transform: translateX(0);
   }
   
   .sidebar-header {
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
+    @apply p-4 text-center text-2xl font-bold;
   }
   
   .sidebar-item {
-    padding: 1rem;
-    text-align: center;
-    font-size: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    @apply p-4 text-center text-base border-b border-white/10;
   }
   
   .sidebar-footer {
-    padding: 1rem;
-    text-align: center;
+    @apply p-4 text-center;
   }
+  
 }
 
 @media (max-width: 639px) {
@@ -621,90 +442,69 @@ tfoot td {
   body {
     overflow-x: hidden; 
   }
-  .page-container{
-    width: 400px;
-  }
 
+  .page-container {
+    @apply w-[400px];
+  }
+  
   .page-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0.5rem;
+    @apply flex flex-col items-center text-center p-2;
   }
-
+  
   .page-content {
-    padding: 0.5rem;
+    @apply p-2;
   }
-
+  
   .card {
-    padding: 0.5rem;
-    max-width: 100%; 
+    @apply p-2 max-w-full;
   }
-
+  
   .card-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @apply flex flex-col items-center text-center;
   }
-
+  
   .card-grid {
-    grid-template-columns: 1fr; 
+    @apply grid grid-cols-1;
   }
-
+  
   .card p {
-    display: block; 
-    margin-bottom: 0.5rem;
+    @apply block mb-2;
   }
-
+  
   .card-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
+    @apply flex flex-col gap-2;
   }
-
+  
   .modal-box {
-    padding: 0.5rem;
-    max-width: 100%; 
+    @apply p-2 max-w-full;
   }
-
+  
   .btn {
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    @apply text-xs p-2;
   }
-
+  
   .sidebar {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9); 
-    z-index: 1000; 
-    transform: translateX(-100%); 
+    @apply fixed top-0 left-0 w-full h-full bg-black/90 z-[1000];
+    transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
-
+  
   .sidebar.open {
-    transform: translateX(0); 
+    transform: translateX(0);
   }
-
+  
   .sidebar-header {
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
+    @apply p-4 text-center text-xl font-bold;
   }
-
+  
   .sidebar-item {
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    @apply p-4 text-center text-sm border-b border-white/10;
   }
-
+  
   .sidebar-footer {
-    padding: 1rem;
-    text-align: center;
+    @apply p-4 text-center;
   }
+  
 }
 
 @media (max-width: 451px) {
@@ -715,118 +515,71 @@ tfoot td {
 
 @media ( max-width: 390px) {
   body {
-    overflow-x: hidden; 
+    @apply overflow-x-hidden;
   }
   
   .page-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0.5rem;
-  }
-
-  .page-content {
-    padding: 0.5rem;
-  }
-
-  .card {
-    padding: 0.5rem;
-    max-width: 100%; 
-  }
-
-  .card-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr; 
-  }
-
-  .card p {
-    display: block; 
-    margin-bottom: 0.5rem;
-  }
-
-  .card-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .modal-box {
-    padding: 0.5rem;
-    max-width: 100%; 
-  }
-
-  .btn {
-    font-size: 0.75rem;
-    padding: 0.5rem;
-  }
-
-  .sidebar {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9); 
-    z-index: 1000; 
-    transform: translateX(-100%); 
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .sidebar.open {
-    transform: translateX(0); 
-  }
-
-  .sidebar-header {
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-
-  .sidebar-item {
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .sidebar-footer {
-    padding: 1rem;
-    text-align: center;
-  }
-  .page-container{
-    width: 200px;
-    padding: 25px;
-  }
-  .flex {
-    flex-direction: column;
+    @apply flex flex-col items-center text-center p-2;
   }
   
-  .flex-1{
-    padding: 15px;
+  .page-content {
+    @apply p-2;
   }
+  
+  .card {
+    @apply p-2 max-w-full;
+  }
+  
+  .card-header {
+    @apply flex flex-col items-center text-center;
+  }
+  
+  .card-grid {
+    @apply grid grid-cols-1;
+  }
+  
+  .card p {
+    @apply block mb-2;
+  }
+  
+  .card-buttons {
+    @apply flex flex-col gap-2;
+  }
+  
+  .modal-box {
+    @apply p-2 max-w-full;
+  }
+  
+  .btn {
+    @apply text-xs p-2;
+  }
+  
+  .page-container {
+    @apply w-[200px] p-[25px];
+  }
+  
+  .flex {
+    @apply flex flex-col;
+  }
+  
+  .flex-1 {
+    @apply p-[15px];
+  }
+  
   .w-250px {
-    width: 100%;
+    @apply w-full;
   }
   
   .p-4 {
-    padding: 0.8rem;
+    @apply p-[0.8rem];
   }
   
   .text-2xl {
-    font-size: 1.3rem;
+    @apply text-[1.3rem];
   }
   
   .sidebar {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100vh;
+    @apply absolute top-0 left-0 w-full h-screen bg-black/90 z-[1000];
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
@@ -835,12 +588,22 @@ tfoot td {
     transform: translateX(0);
   }
   
-  .menu-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 100;
+  .sidebar-header {
+    @apply p-4 text-center text-xl font-bold;
   }
+  
+  .sidebar-item {
+    @apply p-4 text-center text-sm border-b border-white/10;
+  }
+  
+  .sidebar-footer {
+    @apply p-4 text-center;
+  }
+  
+  .menu-button {
+    @apply absolute top-[10px] left-[10px] z-[100];
+  }
+  
 }
 
 

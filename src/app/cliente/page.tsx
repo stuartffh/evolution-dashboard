@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importa o roteador para redirecionamento
+import { useRouter } from 'next/navigation'; 
 import { Bars3Icon, XMarkIcon, CubeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
@@ -10,9 +10,9 @@ export default function ClientePage() {
   const [loading, setLoading] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
   const [qrcode, setQrcode] = useState<string | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
   const qrInterval = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter(); // Inicializa o roteador
+  const router = useRouter(); 
 
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -114,8 +114,8 @@ export default function ClientePage() {
   };
 
   const logout = () => {
-    localStorage.removeItem('token'); // Remove o token do localStorage
-    router.push('/login'); // Redireciona para a página de login
+    localStorage.removeItem('token'); 
+    router.push('/login'); 
   };
 
   const fecharModal = () => {
@@ -134,7 +134,6 @@ export default function ClientePage() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-purple-90 via-gray-900 to-black text-white">
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full bg-gradient-to-b from-black to-purple-900 text-white z-50 transition-transform duration-300 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -142,9 +141,8 @@ export default function ClientePage() {
         style={{ width: '250px' }}
       >
         <div className="p-4">
-          {/* Botão hambúrguer dentro do sidebar */}
           <button
-            onClick={() => setIsSidebarOpen(false)} // Fecha o sidebar
+            onClick={() => setIsSidebarOpen(false)} 
             className="p-2 bg-purple-700 text-white rounded-md focus:outline-none flex items-center mb-4"
           >
             <XMarkIcon className="h-6 w-6" />
@@ -158,9 +156,8 @@ export default function ClientePage() {
           </ul>
         </div>
         <div className="p-4 mt-auto">
-          {/* Botão de Sair */}
           <button
-            onClick={logout} // Função para deslogar
+            onClick={logout} 
             className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md w-full"
           >
             Sair
@@ -168,24 +165,20 @@ export default function ClientePage() {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1">
-        {/* Header */}
         <div className="flex items-center p-4 text-white">
           <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)} // Alterna entre abrir e fechar
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
             className="p-2 bg-purple-700 text-white rounded-md focus:outline-none flex items-center z-50"
           >
             <Bars3Icon className="h-6 w-6" />
           </button>
         </div>
 
-        {/* Título centralizado */}
         <div className="text-center p-6">
           <h1 className="text-3xl font-bold mb-6 text-white">Painel do Cliente</h1>
         </div>
 
-        {/* Conteúdo principal */}
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-6 text-center text-white">Minha Instância</h1>
 
@@ -255,34 +248,34 @@ export default function ClientePage() {
             </div>
           )}
 
-          {showQRModal && (
-            <div className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
-              <div className="modal-box bg-black p-6 rounded-lg shadow-lg text-white">
-                <h2 className="text-lg font-bold mb-4 text-center">
-                  Escaneie o QR Code abaixo
-                </h2>
+{showQRModal && (
+    <div className="modal">
+        <div className="modal-box">
+            <h2 className="modal-title">
+                Escaneie o QR Code abaixo
+            </h2>
 
-                {qrcode ? (
-                  <Image
+            {qrcode ? (
+                <Image
                     src={qrcode}
                     alt="QR Code"
                     width={250}
                     height={250}
-                    className="mx-auto border border-white/20 rounded"
-                  />
-                ) : (
-                  <p className="text-center text-gray-400">Aguardando QR Code...</p>
-                )}
+                    className="qr-image"
+                />
+            ) : (
+                <p className="loading-text">Aguardando QR Code...</p>
+            )}
 
-                <button
-                  onClick={fecharModal}
-                  className="btn bg-red-600 hover:bg-red-700 mt-4 w-full py-2 rounded-md shadow-md transition duration-200"
-                >
-                  Fechar
-                </button>
-              </div>
-            </div>
-          )}
+            <button
+                onClick={fecharModal}
+                className="close-btn"
+            >
+                Fechar
+            </button>
+        </div>
+    </div>
+)}
         </div>
       </div>
     </div>
