@@ -14,6 +14,7 @@ COPY prisma ./prisma
 
 # Instala dependências
 RUN npm install
+RUN npm install --save-dev @types/cookie
 
 # Gera tipos do Prisma
 RUN npx prisma generate
@@ -21,8 +22,6 @@ RUN npx prisma generate
 # Copia o restante do código do projeto
 COPY . .
 
-# Desativa ESLint durante o build (somente para produção)
-ENV NEXT_DISABLE_ESLINT=true
 
 # Gera build de produção do Next.js
 RUN npm run build
