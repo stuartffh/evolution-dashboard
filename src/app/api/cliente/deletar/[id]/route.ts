@@ -3,11 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 const MASTER_KEY = process.env.MASTER_KEY || "zapchatbr.com";
 const BASE_URL = "https://panel.zapchatbr.com";
 
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Record<string, string> }
+  { params }: { params: { id: string } } // Alteração crucial aqui
 ) {
   const id = params.id;
   const url = new URL(req.url);
