@@ -1,5 +1,6 @@
 'use client';
 
+<<<<<<< HEAD
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation'; 
 import { Bars3Icon, XMarkIcon, CubeIcon } from '@heroicons/react/24/outline';
@@ -13,6 +14,13 @@ export default function ClientePage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
   const qrInterval = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter(); 
+=======
+import { useCallback, useEffect, useState } from "react";
+import { Cliente, EvolutionInstance } from "@/lib/types";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Importa os ícones do Heroicons
+
+
+>>>>>>> d3957ff671db613f3ebf853c4e2fe1b818b7d018
 
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -126,11 +134,64 @@ export default function ClientePage() {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     fetchStatus();
     return () => {
       if (qrInterval.current) clearInterval(qrInterval.current);
     };
   }, [fetchStatus]);
+=======
+    fetchClientes();
+    fetchInstancias();
+  }, [fetchClientes, fetchInstancias]);
+
+  const handleSubmit = async () => {
+    const method = editando ? "PUT" : "POST";
+    const url = editando
+      ? `/api/cliente/editar/${editando}`
+      : "/api/cliente/criar";
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (res.ok) {
+      setForm({ nome: "", email: "", senha: "", instanceId: "" });
+      setEditando(null);
+      await fetchClientes();
+      await fetchInstancias();
+    } else {
+      alert("Erro ao salvar cliente");
+    }
+  };
+
+  const handleEdit = (cliente: Cliente) => {
+    setForm({
+      nome: cliente.nome,
+      email: cliente.email,
+      senha: cliente.senha,
+      instanceId: cliente.instanceId,
+    });
+    setEditando(cliente.id);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Tem certeza que deseja deletar?")) return;
+
+    await fetch(`/api/cliente/deletar/${id}?acao=delete`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    await fetchClientes();
+    await fetchInstancias();
+  };
+>>>>>>> d3957ff671db613f3ebf853c4e2fe1b818b7d018
 
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-purple-90 via-gray-900 to-black text-white">
