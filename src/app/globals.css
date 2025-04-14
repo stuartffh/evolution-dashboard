@@ -66,7 +66,7 @@ h3 {
 
 .page-login {
   @apply min-h-screen flex items-center justify-center px-4;
-  background-image: url(../images/fundo.png);
+  background-image: url(./imgs/fundo.png);
   background-size: 200% 200%;
   animation: gradient-move 6s ease infinite;
 }
@@ -707,12 +707,4 @@ tfoot td {
     left: 10px;
     z-index: 100;
   }
-<<<<<<< HEAD
 }
-=======
-  
-}
-
-
-
->>>>>>> d3957ff671db613f3ebf853c4e2fe1b818b7d018
