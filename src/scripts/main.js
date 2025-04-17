@@ -79,35 +79,11 @@ export default function initMainScripts() {
     })
 
     // Menu hamburger
-    const hamburger = document.querySelector('.hamburger-menu')
-    const navLinks = document.querySelector('.nav-links')
-    const navOverlay = document.createElement('div')
-    navOverlay.classList.add('nav-overlay')
-    document.body.appendChild(navOverlay)
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const navMenu = document.getElementById('navMenu');
 
-    const closeMenu = () => {
-      navLinks?.classList.remove('active')
-      navOverlay.classList.remove('active')
-      const icon = hamburger?.querySelector('i')
-      if (icon) {
-        icon.classList.remove('bi-x')
-        icon.classList.add('bi-list')
-      }
-    }
-
-    hamburger?.addEventListener('click', () => {
-      navLinks?.classList.toggle('active')
-      navOverlay.classList.toggle('active')
-      const icon = hamburger?.querySelector('i')
-      if (icon) {
-        icon.classList.toggle('bi-list')
-        icon.classList.toggle('bi-x')
-      }
-    })
-
-    navOverlay.addEventListener('click', closeMenu)
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', closeMenu)
-    })
+  hamburgerBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('hidden');
+  });
   })
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import 'style.css';
+import 'style.css'; 
 
 export default function Home() {
   return (
@@ -12,10 +12,9 @@ export default function Home() {
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        />
-        <link rel="stylesheet" href="/style.css" />
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
       </Head>
 
       <header>
@@ -34,10 +33,15 @@ export default function Home() {
             <li><a href="#contact">Contato</a></li>
           </ul>
           <div className="cta-buttons">
-            <a href="/login/page.tsx" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              <button><i className="bi bi-whatsapp"></i></button>
-            </a>
-          </div>
+  <a
+    href="https://wa.me/SEUNUMERO"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-primary"
+  >
+    <i className="bi bi-whatsapp"></i>
+  </a>
+</div>
         </nav>
       </header>
 
@@ -64,7 +68,7 @@ export default function Home() {
               <h3>Automatização Inteligente</h3>
               <p>Soluções personalizadas para maximizar sua produtividade e segurança.</p>
             </div>
-            <Image src="/imgs/automatizacao.png" alt="Automatização Inteligente" width={400} height={300} />
+            <img src="/imgs/automatizacao.png" alt="Automatização Inteligente" />
           </div>
         </div>
 
@@ -74,7 +78,7 @@ export default function Home() {
               <h3>Otimização de Processos</h3>
               <p>Reduza desperdícios e aumente a eficiência operacional.</p>
             </div>
-            <Image src="/imgs/otimizacao.png" alt="Otimização de Processos" width={400} height={300} />
+            <img src="/imgs/otimizacao.png" alt="Otimização de Processos" />
           </div>
         </div>
 
@@ -84,7 +88,7 @@ export default function Home() {
               <h3>Integrações Personalizadas</h3>
               <p>Conectamos sistemas para criar um ecossistema digital unificado.</p>
             </div>
-            <Image src="/imgs/integracao.png" alt="Integrações Personalizadas" width={400} height={300} />
+            <Image src="/imgs/integracao.png" alt="Integrações Personalizadas"/>
           </div>
         </div>
 

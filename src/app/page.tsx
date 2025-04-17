@@ -3,11 +3,11 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Head from 'next/head'
-import '@/styles/globals.css'
+import './style.css'
 import Image from 'next/image'
 import initMainScripts from '@/scripts/main.js'
 
-export default function HomePage() {
+export default function CustomPage() {
   const router = useRouter()
 
   useEffect(() => {
@@ -17,14 +17,16 @@ export default function HomePage() {
 
   return (
     <>
-      <Head>
-        <title>ZapChatBR - Soluções Inteligentes para o Seu Negócio</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="stylesheet"
-          href="https:/cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        />
-      </Head>
+    <Head>
+      <title>ZapChatBR - Soluções Inteligentes para o Seu Negócio</title>
+      <meta charSet="UTF-8" />
+      <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./>styles/style.css" />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    </Head>
+
 
       <header>
         <nav>
@@ -42,10 +44,15 @@ export default function HomePage() {
             <li><a href="#contact">Contato</a></li>
           </ul>
           <div className="cta-buttons">
-            <a href="https:/wa.me/SEUNUMERO" target="_blank" className="btn btn-primary">
-              <button><i className="bi bi-whatsapp"></i></button>
-            </a>
-          </div>
+  <a
+    href="https://wa.me/SEUNUMERO"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-primary"
+  >
+    <i className="bi bi-whatsapp"></i>
+  </a>
+</div>
         </nav>
       </header>
 
@@ -54,7 +61,7 @@ export default function HomePage() {
           <h1>ZapChatBR</h1>
           <h2><span className="rotating-words"></span>Inteligente para o Seu Negócio</h2>
           <p>Desenvolvemos softwares, automações e integrações para impulsionar seu negócio com segurança e eficiência.</p>
-          <button onClick={() => router.push("/login")} className="btn">
+          <button onClick={() => router.push("/login")} className="login-box">
             Acessar Dashboard
           </button>
         </div>
@@ -75,7 +82,7 @@ export default function HomePage() {
               <h3>Automatização Inteligente</h3>
               <p>Soluções personalizadas para maximizar sua produtividade e segurança.</p>
             </div>
-            <Image src="/imgs/automatizacao.png" alt="Automatização Inteligente" width={500} height={300} />
+            <Image src="/imgs/automatizacao.png" alt="Automatização Inteligente" width={400} height={300} />
           </div>
         </div>
 
@@ -109,6 +116,25 @@ export default function HomePage() {
           </div>
         </div>
         </section>
+
+        <section id="diferenciais" className="diferenciais">
+        <h2>Diferenciais da ZapChatBR</h2>
+        <div className="diferenciais-grid">
+          {[
+            { title: 'Soluções Personalizadas', text: 'Oferecemos soluções sob medida para atender às suas necessidades específicas.' },
+            { title: 'Equipe Especializada', text: 'Nossa equipe é composta por profissionais altamente qualificados e experientes.' },
+            { title: 'Segurança e Confiabilidade', text: 'Garantimos a segurança e a confiabilidade de todos os nossos serviços.' },
+            { title: 'Atendimento Exclusivo', text: 'Oferecemos um atendimento personalizado e dedicado para cada cliente.' },
+            { title: 'Inovação Tecnológica', text: 'Utilizamos as mais avançadas tecnologias para entregar resultados excepcionais.' },
+            { title: 'Suporte 24/7', text: 'Estamos disponíveis 24 horas por dia, 7 dias por semana, para ajudar você.' },
+          ].map(({ title, text }, i) => (
+            <div className="cards" key={i}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section id="faq" className="faq">
         <h2>FAQ</h2>
@@ -147,7 +173,6 @@ export default function HomePage() {
             <p><strong>Telefone:</strong> (XX) XXXX-XXXX</p>
           </div>
         </div>
-        <a href="https:/wa.me/SEUNUMERO" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Fale Conosco</a>
         <form className="contact-form">
           <input type="text" placeholder="Seu Nome" required />
           <input type="email" placeholder="Seu E-mail" required />
@@ -180,4 +205,5 @@ export default function HomePage() {
       </footer>
     </>
   )
+
 }

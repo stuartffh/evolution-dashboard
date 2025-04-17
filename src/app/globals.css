@@ -11,13 +11,16 @@
   --transition: all 0.25s ease-in-out;
 }
 
-body {
-  font-family: var(--font-primary);
-  background: var(--bg-main);
-  color: #f4f4f5;
-  overflow-x: hidden;
-  transition: var(--transition);
+
+header {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 
 @keyframes gradient-move {
   0% {
@@ -31,14 +34,14 @@ body {
   }
 }
 
-.dark body {
-  background: linear-gradient(135deg, #000000, #2a0247, #010147);
+body {
+  background-color: #000000;
   background-size: 200% 200%;
   animation: gradient-move 6s ease infinite;
   color: #f1f1f1;
 }
 
-h1, h2, h3 {
+h1, h2, h3{
   @apply font-bold text-white tracking-wide;
 }
 
@@ -47,9 +50,6 @@ h1 {
 }
 h2 {
   @apply text-2xl mb-4;
-}
-h3 {
-  @apply text-xl mb-2;
 }
 
 .page-home {
@@ -150,6 +150,7 @@ button{
 }
 
 
+
 .page-title {
   @apply text-center; 
 }
@@ -158,24 +159,11 @@ button{
   @apply text-center mt-8; 
 }
 
-.card {
-  @apply p-6 rounded-xl shadow-lg space-y-4 border border-blue-500; 
-  background: transparent; 
-  transition: var(--transition);
-  max-width: 800px; 
-  height: 400px; 
-  margin: auto;
-}
-
-.card:hover {
-  box-shadow: 0 0 10px 2px #3fc2ff; 
-}
-
 
 input,
 select,
 textarea {
-  @apply w-full bg-transparent text-white placeholder:text-white focus:outline-none focus:ring-0 transition;
+  @apply w-70 bg-transparent text-white placeholder:text-white focus:outline-none focus:ring-0 transition;
   border: none;
   border-bottom: 2px solid #6b21a8; 
 }
@@ -195,6 +183,7 @@ select:focus {
   ring: 2px;
   ring-color: #8b5cf6; 
 }
+
 input:focus,
 select:focus,
 textarea:focus {
