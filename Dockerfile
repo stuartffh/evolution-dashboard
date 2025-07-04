@@ -17,7 +17,7 @@ RUN npm install
 RUN npm install --save-dev @types/cookie
 
 # Gera tipos do Prisma
-RUN npx prisma generate
+#RUN npx prisma generate
 
 # Copia o restante do código do projeto
 COPY . .
