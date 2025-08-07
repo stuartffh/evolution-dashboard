@@ -265,7 +265,7 @@ export default function GestorDashboard() {
             </div>
           )}
         </LoadingCard>
-      </div>
-    </Sidebar>
+      </PageLayout>
+    </ResponsiveSidebar>
   );
 }
