@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { EnvelopeIcon, LockClosedIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useToastContext } from '@/components/ToastProvider';
+import { PageContainer, Card } from '@/components/ui/Layout';
+import { Form, FormField, EmailInput, PasswordInput, FormActions } from '@/components/ui/Form';
+import { PrimaryButton } from '@/components/ui/Button';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -70,38 +74,77 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="page-login">
-      <div className="login-box w-80 h-96 p-6 rounded-lg flex flex-col items-center justify-center shadow-lg">
-        <h1 className="form-title text-2xl font-bold text-white mb-6">ZapChatBR</h1>
+    <PageContainer>
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          {/* Header */}
+          <div className="text-center">
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              ZapChatBR
+            </h1>
+            <p className="mt-3 text-gray-400 text-sm sm:text-base">
+              Faça login para acessar o painel
+            </p>
+          </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="input w-full mb-4 border-b-2 border-gray-500 bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          {/* Login Card */}
+          <Card variant="glass" className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-xl blur opacity-60"></div>
+            <div className="relative">
+              <Form onSubmit={handleLogin}>
+                <FormField label="Email" required>
+                  <div className="relative">
+                    <EnvelopeIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <EmailInput
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10"
+                      placeholder="Digite seu email"
+                    />
+                  </div>
+                </FormField>
 
-        <input
-          type="password"
-          placeholder="Senha"
-          className="input w-full mb-4 border-b-2 border-gray-500 bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
+                <FormField label="Senha" required>
+                  <div className="relative">
+                    <LockClosedIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <PasswordInput
+                      value={senha}
+                      onChange={(e) => setSenha(e.target.value)}
+                      className="pl-10"
+                      placeholder="Digite sua senha"
+                    />
+                  </div>
+                </FormField>
 
-<button
-          onClick={handleLogin}
-          disabled={loading}
-          className="btn w-full py-2 font-semibold rounded-md transition duration-200 ease-in-out shadow disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{
-            background: loading ? '#666' : 'linear-gradient(to right, #08132b, #1d042e)',
-            color: '#fff',
-          }}
-        >
-          {loading ? 'Entrando...' : 'Entrar'}
-        </button>
+                <FormActions>
+                  <PrimaryButton
+                    type="button"
+                    onClick={handleLogin}
+                    loading={loading}
+                    loadingText="Entrando..."
+                    icon={<ArrowRightIcon className="h-4 w-4" />}
+                    fullWidth
+                    size="lg"
+                  >
+                    Entrar
+                  </PrimaryButton>
+                </FormActions>
+              </Form>
+
+              {/* Demo Credentials */}
+              <div className="mt-6 p-4 bg-white/5 rounded-lg border border-white/10">
+                <p className="text-xs text-gray-400 text-center mb-2">Credenciais de teste:</p>
+                <div className="text-xs text-gray-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span>Admin:</span>
+                    <span className="text-purple-400">admin / admin123</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
