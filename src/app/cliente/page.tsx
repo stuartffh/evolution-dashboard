@@ -1,22 +1,26 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importa o roteador para redirecionamento
+import { useRouter } from 'next/navigation';
 import { Bars3Icon, XMarkIcon, CubeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useToastContext } from '@/components/ToastProvider';
+import { LoadingButton, LoadingCard } from '@/components/Loading';
 import { EvolutionInstance } from '@/lib/types';
 
 export default function ClientePage() {
   const [instancia, setInstancia] = useState<EvolutionInstance | null>(null);
   const [loading, setLoading] = useState(false);
+  const [connecting, setConnecting] = useState(false);
+  const [disconnecting, setDisconnecting] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
   const [qrcode, setQrcode] = useState<string | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const qrInterval = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter(); // Inicializa o roteador
+  const router = useRouter();
+  const toast = useToastContext();
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const fetchStatus = useCallback(async () => {
     if (!token) return;
@@ -45,6 +49,7 @@ export default function ClientePage() {
 
   const conectarInstancia = async () => {
     if (!instancia) return;
+    setConnecting(true);
     setShowQRModal(true);
     fetchQRCode();
 
@@ -62,10 +67,15 @@ export default function ClientePage() {
       );
 
       if (!res.ok) {
-        alert('Erro ao conectar instância');
+        toast.error('Erro de conexão', 'Não foi possível conectar a instância. Tente novamente.');
+        setShowQRModal(false);
       }
     } catch (error) {
       console.error('Erro ao conectar instância:', error);
+      toast.error('Erro de conexão', 'Não foi possível conectar com o servidor.');
+      setShowQRModal(false);
+    } finally {
+      setConnecting(false);
     }
   };
 
@@ -94,6 +104,7 @@ export default function ClientePage() {
 
   const desconectarInstancia = async () => {
     if (!instancia) return;
+    setDisconnecting(true);
 
     try {
       const res = await fetch(
@@ -106,17 +117,21 @@ export default function ClientePage() {
 
       if (res.ok) {
         await fetchStatus();
+        toast.success('Instância desconectada', 'A instância foi desconectada com sucesso');
       } else {
-        alert('Erro ao desconectar instância');
+        toast.error('Erro ao desconectar', 'Não foi possível desconectar a instância. Tente novamente.');
       }
     } catch (error) {
       console.error('Erro ao desconectar instância:', error);
+      toast.error('Erro de conexão', 'Não foi possível conectar com o servidor');
+    } finally {
+      setDisconnecting(false);
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token'); // Remove o token do localStorage
-    router.push('/login'); // Redireciona para a página de login
+    localStorage.removeItem('token');
+    router.push('/login');
   };
 
   const fecharModal = () => {
@@ -143,9 +158,8 @@ export default function ClientePage() {
         style={{ width: '250px' }}
       >
         <div className="p-4">
-          {/* Botão hambúrguer dentro do sidebar */}
           <button
-            onClick={() => setIsSidebarOpen(false)} // Fecha o sidebar
+            onClick={() => setIsSidebarOpen(false)}
             className="p-2 bg-purple-700 text-white rounded-md focus:outline-none flex items-center mb-4"
           >
             <XMarkIcon className="h-6 w-6" />
@@ -159,9 +173,8 @@ export default function ClientePage() {
           </ul>
         </div>
         <div className="p-4 mt-auto">
-          {/* Botão de Sair */}
           <button
-            onClick={logout} // Função para deslogar
+            onClick={logout}
             className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md w-full"
           >
             Sair
@@ -174,7 +187,7 @@ export default function ClientePage() {
         {/* Header */}
         <div className="flex items-center p-4 text-white">
           <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)} // Alterna entre abrir e fechar
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="p-2 bg-purple-700 text-white rounded-md focus:outline-none flex items-center z-50"
           >
             <Bars3Icon className="h-6 w-6" />
@@ -190,77 +203,86 @@ export default function ClientePage() {
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-6 text-center text-white">Minha Instância</h1>
 
-          {loading && (
-            <p className="text-center text-gray-400 animate-pulse">Carregando...</p>
-          )}
-
-          {instancia && (
-            <div className="card p-6 rounded-lg shadow-lg text-white">
-              <div className="card-header flex flex-col items-start mb-4">
-                <h2 className="text-2xl font-semibold">{instancia.name}</h2>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    instancia.connectionStatus === 'open'
-                      ? 'bg-green-600 text-white'
+          <LoadingCard 
+            isLoading={loading} 
+            loadingMessage="Carregando dados da instância..."
+            className="p-6 rounded-lg shadow-lg text-white"
+          >
+            {instancia && (
+              <div>
+                <div className="card-header flex flex-col items-start mb-4">
+                  <h2 className="text-2xl font-semibold">{instancia.name}</h2>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      instancia.connectionStatus === 'open'
+                        ? 'bg-green-600 text-white'
+                        : instancia.connectionStatus === 'qr'
+                        ? 'bg-yellow-500 text-black'
+                        : 'bg-red-600 text-white'
+                    }`}
+                  >
+                    {instancia.connectionStatus === 'open'
+                      ? 'Conectado'
                       : instancia.connectionStatus === 'qr'
-                      ? 'bg-yellow-500 text-black'
-                      : 'bg-red-600 text-white'
-                  }`}
-                >
-                  {instancia.connectionStatus === 'open'
-                    ? 'Conectado'
-                    : instancia.connectionStatus === 'qr'
-                    ? 'QR Code pendente'
-                    : 'Desconectado'}
-                </span>
-              </div>
+                      ? 'QR Code pendente'
+                      : 'Desconectado'}
+                  </span>
+                </div>
 
-              <div className="flex flex-col gap-2 mb-6">
-                <p>
-                  <strong>Número:</strong> {instancia.ownerJid || 'Não disponível'}
-                </p>
-                <p>
-                  <strong>Nome no WhatsApp:</strong> {instancia.profileName || 'Não disponível'}
-                </p>
-                <p>
-                  <strong>Mensagens:</strong> {instancia._count?.Message ?? 0}
-                </p>
-                <p>
-                  <strong>Contatos:</strong> {instancia._count?.Contact ?? 0}
-                </p>
-              </div>
+                <div className="flex flex-col gap-2 mb-6">
+                  <p>
+                    <strong>Número:</strong> {instancia.ownerJid || 'Não disponível'}
+                  </p>
+                  <p>
+                    <strong>Nome no WhatsApp:</strong> {instancia.profileName || 'Não disponível'}
+                  </p>
+                  <p>
+                    <strong>Mensagens:</strong> {instancia._count?.Message ?? 0}
+                  </p>
+                  <p>
+                    <strong>Contatos:</strong> {instancia._count?.Contact ?? 0}
+                  </p>
+                </div>
 
-              <div className="btn-group flex flex-col gap-4">
-                <button
-                  onClick={fetchStatus}
-                  className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
-                >
-                  Atualizar
-                </button>
-
-                {instancia.connectionStatus === 'open' && (
-                <button onClick={desconectarInstancia} className="btn bg-red-600 hover:bg-red-700">
-                  Desconectar
-                </button>
-              )}
-
-                {instancia.connectionStatus === 'open' ? (
-                  <button
-                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
+                <div className="btn-group flex flex-col gap-4">
+                  <LoadingButton
+                    onClick={fetchStatus}
+                    isLoading={loading}
+                    loadingText="Atualizando..."
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
                   >
-                    Conectado
-                  </button>
-                ) : (
-                  <button
-                    onClick={conectarInstancia}
-                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
-                  >
-                    Conectar
-                  </button>
-                )}
+                    Atualizar
+                  </LoadingButton>
+
+                  {instancia.connectionStatus === 'open' && (
+                    <LoadingButton
+                      onClick={desconectarInstancia}
+                      isLoading={disconnecting}
+                      loadingText="Desconectando..."
+                      className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
+                    >
+                      Desconectar
+                    </LoadingButton>
+                  )}
+
+                  {instancia.connectionStatus === 'open' ? (
+                    <button className="bg-green-600 text-white py-2 px-4 rounded-md shadow-md cursor-default">
+                      ✓ Conectado
+                    </button>
+                  ) : (
+                    <LoadingButton
+                      onClick={conectarInstancia}
+                      isLoading={connecting}
+                      loadingText="Conectando..."
+                      className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md shadow-md transition duration-200"
+                    >
+                      Conectar
+                    </LoadingButton>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </LoadingCard>
 
           {showQRModal && (
             <div className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">

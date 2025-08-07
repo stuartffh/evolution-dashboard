@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useCallback, FormEvent } from 'react';
 import Sidebar from '@/components/Sidebar';
+import { useToastContext } from '@/components/ToastProvider';
+import { LoadingButton, LoadingCard } from '@/components/Loading';
 import { EvolutionInstance } from '@/lib/types';
 
 const ITEMS_PER_PAGE = 4;
@@ -11,6 +13,8 @@ export default function GestorInstancias() {
   const [loading, setLoading] = useState(false);
   const [novoNome, setNovoNome] = useState('');
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [criandoInstancia, setCriandoInstancia] = useState(false);
+  const toast = useToastContext();
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
@@ -34,22 +38,36 @@ export default function GestorInstancias() {
 
   const criarInstancia = async (e: FormEvent) => {
     e.preventDefault();
-    if (!novoNome.trim()) return;
+    if (!novoNome.trim()) {
+      toast.warning('Campo obrigatório', 'Por favor, insira um nome para a instância');
+      return;
+    }
 
-    const res = await fetch('/api/evolution/instancias/criar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ instanceName: novoNome })
-    });
+    setCriandoInstancia(true);
 
-    if (res.ok) {
-      setNovoNome('');
-      await fetchInstancias();
-    } else {
-      alert('Erro ao criar instância');
+    try {
+      const res = await fetch('/api/evolution/instancias/criar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ instanceName: novoNome })
+      });
+
+      if (res.ok) {
+        setNovoNome('');
+        await fetchInstancias();
+        toast.success('Instância criada', 'A instância foi criada com sucesso');
+      } else {
+        const errorText = await res.text();
+        toast.error('Erro ao criar instância', errorText || 'Tente novamente em alguns instantes');
+      }
+    } catch (error) {
+      console.error('Erro ao criar instância:', error);
+      toast.error('Erro de conexão', 'Não foi possível conectar com o servidor');
+    } finally {
+      setCriandoInstancia(false);
     }
   };
 
@@ -63,8 +81,18 @@ export default function GestorInstancias() {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (res.ok) await fetchInstancias();
-    else alert('Erro na operação');
+    if (res.ok) {
+      await fetchInstancias();
+      const successMessages = {
+        'connect': 'Instância conectada com sucesso',
+        'logout': 'Instância desconectada com sucesso', 
+        'delete': 'Instância deletada com sucesso'
+      };
+      toast.success('Operação realizada', successMessages[tipo]);
+    } else {
+      const errorText = await res.text();
+      toast.error('Erro na operação', errorText || 'Tente novamente em alguns instantes');
+    }
   };
 
   useEffect(() => {
@@ -90,14 +118,21 @@ export default function GestorInstancias() {
             onChange={(e) => setNovoNome(e.target.value)}
             className="input w-full"
           />
-          <button type="submit" className="btn bg-purple-600 hover:bg-purple-700 text-sm">
+          <LoadingButton 
+            type="submit" 
+            isLoading={criandoInstancia}
+            loadingText="Criando..."
+            className="btn bg-purple-600 hover:bg-purple-700 text-sm"
+          >
             Criar
-          </button>
+          </LoadingButton>
         </form>
 
-        {loading && <p className="text-muted mb-4">Carregando instâncias...</p>}
-
-        <div className="grid md:grid-cols-2 gap-4">
+        <LoadingCard 
+          isLoading={loading} 
+          loadingMessage="Carregando instâncias..."
+          className="grid md:grid-cols-2 gap-4"
+        >
           {instanciasPaginadas.map((inst) => (
             <div key={inst.id} className="card space-y-2">
               <div className="card-header">
@@ -158,7 +193,7 @@ export default function GestorInstancias() {
               </div>
             </div>
           ))}
-        </div>
+        </LoadingCard>
 
         {totalPages > 1 && (
           <div className="pagination mt-6 flex gap-2 justify-center">

@@ -2,47 +2,70 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useToastContext } from '@/components/ToastProvider';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const toast = useToastContext();
 
   const handleLogin = async () => {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, senha }),
-    });
+    if (!email || !senha) {
+      toast.warning('Campos obrigatórios', 'Por favor, preencha email e senha');
+      return;
+    }
 
-    if (res.ok) {
-      const data = await res.json();
-      const token = data.token;
+    setLoading(true);
 
-      if (!token) {
-        alert('Token não retornado pela API');
-        return;
-      }
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, senha }),
+      });
 
-      localStorage.setItem('token', token);
+      if (res.ok) {
+        const data = await res.json();
+        const token = data.token;
 
-      let payload;
-      try {
-        payload = JSON.parse(atob(token.split('.')[1]));
-      } catch (err) {
-        console.error('Erro ao decodificar token:', err);
-        alert('Token inválido');
-        return;
-      }
+        if (!token) {
+          toast.error('Erro de autenticação', 'Token não retornado pelo servidor');
+          return;
+        }
 
-      if (payload.tipo === 'gestor') {
-        router.push('/gestor');
-      } else if (payload.tipo === 'cliente') {
-        router.push('/cliente');
+        localStorage.setItem('token', token);
+
+        let payload;
+        try {
+          payload = JSON.parse(atob(token.split('.')[1]));
+        } catch (err) {
+          console.error('Erro ao decodificar token:', err);
+          toast.error('Token inválido', 'Erro ao processar dados de login');
+          return;
+        }
+
+        toast.success('Login realizado!', 'Redirecionando para o painel...');
+
+        if (payload.tipo === 'gestor') {
+          router.push('/gestor');
+        } else if (payload.tipo === 'cliente') {
+          router.push('/cliente');
+        } else {
+          toast.error('Erro de autorização', 'Tipo de usuário não reconhecido');
+        }
       } else {
-        alert('Tipo de usuário desconhecido');
+        const errorText = await res.text();
+        toast.error('Login falhou', errorText || 'Credenciais inválidas');
       }
-    } else {
-      alert('Credenciais inválidas');
+    } catch (error) {
+      console.error('Erro no login:', error);
+      toast.error('Erro de conexão', 'Não foi possível conectar com o servidor');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,13 +92,14 @@ export default function LoginPage() {
 
 <button
           onClick={handleLogin}
-          className="btn w-full py-2 font-semibold rounded-md transition duration-200 ease-in-out shadow"
+          disabled={loading}
+          className="btn w-full py-2 font-semibold rounded-md transition duration-200 ease-in-out shadow disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
-            background: 'linear-gradient(to right, #08132b, #1d042e)',
+            background: loading ? '#666' : 'linear-gradient(to right, #08132b, #1d042e)',
             color: '#fff',
           }}
         >
-          Entrar
+          {loading ? 'Entrando...' : 'Entrar'}
         </button>
       </div>
     </div>
