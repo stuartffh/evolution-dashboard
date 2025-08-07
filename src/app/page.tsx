@@ -44,6 +44,13 @@ export default function CustomPage() {
             <li><a href="#contact">Contato</a></li>
           </ul>
           <div className="cta-buttons">
+  <button 
+    onClick={() => router.push("/login")} 
+    className="btn btn-primary me-2"
+  >
+    <i className="bi bi-box-arrow-in-right me-1"></i>
+    Login
+  </button>
   <a
     href="https://wa.me/SEUNUMERO"
     target="_blank"
@@ -61,7 +68,11 @@ export default function CustomPage() {
           <h1>ZapChatBR</h1>
           <h2><span className="rotating-words"></span>Inteligente para o Seu Negócio</h2>
           <p>Desenvolvemos softwares, automações e integrações para impulsionar seu negócio com segurança e eficiência.</p>
-          <button onClick={() => router.push("/login")} className="login-box">
+          <button 
+            onClick={() => router.push("/login")} 
+            className="btn btn-primary login-btn"
+          >
+            <i className="bi bi-box-arrow-in-right me-2"></i>
             Acessar Dashboard
           </button>
         </div>
