@@ -1,7 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import Sidebar from '@/components/Sidebar';
+import ResponsiveSidebar from '@/components/ResponsiveSidebar';
+import PageLayout from '@/components/PageLayout';
+import ResponsiveCard from '@/components/ResponsiveCard';
 import { useToastContext } from '@/components/ToastProvider';
 import { LoadingButton, LoadingCard } from '@/components/Loading';
 import { Cliente, EvolutionInstance } from '@/lib/types';
@@ -139,15 +141,16 @@ export default function GestorDashboard() {
   }, [fetchClientes, fetchInstancias]);
 
   return (
-    <Sidebar role="gestor">
-      <div className="page-container max-w-6xl">
-        <h1 className="page-title">Painel do Gestor</h1>
-
+    <ResponsiveSidebar role="gestor">
+      <PageLayout 
+        title="Painel do Gestor"
+        subtitle="Gerencie clientes e instâncias da Evolution API"
+      >
         {/* Formulário para criar/editar cliente */}
-        <div className="card p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4">
-            {editando ? 'Editar Cliente' : 'Criar Novo Cliente'}
-          </h2>
+        <ResponsiveCard 
+          title={editando ? 'Editar Cliente' : 'Criar Novo Cliente'}
+          className="mb-6"
+        >
           
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             <input
@@ -210,7 +213,7 @@ export default function GestorDashboard() {
               </button>
             )}
           </div>
-        </div>
+        </ResponsiveCard>
 
         {/* Lista de clientes */}
         <LoadingCard 
